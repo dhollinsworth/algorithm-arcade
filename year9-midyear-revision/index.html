@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Year 9 Computer Science | Midyear Revision</title>
+<style>
+:root{font:17px/1.55 system-ui,sans-serif;color:#172842;background:#eef3f7;--navy:#142844;--teal:#00675e}
+*{box-sizing:border-box} body{margin:0} header{background:var(--navy);color:white;padding:2rem max(5vw,calc((100vw - 1040px)/2));border-bottom:5px solid #50dfbc}
+header p{margin:0;color:#bcf5e7} h1{font-size:clamp(2rem,5vw,3.5rem);line-height:1.05;margin:.5rem 0} h2,h3,p{margin-top:0}
+main{max-width:1080px;margin:auto;padding:1.4rem 1rem 3rem;display:grid;grid-template-columns:250px 1fr;gap:1.4rem}
+aside,article{background:white;border:1px solid #d1dfeb;border-radius:16px;padding:1.25rem;align-self:start}
+nav{display:grid;gap:.45rem} button,input,select,textarea{font:inherit} button{cursor:pointer;border:1px solid #b5c7d8;border-radius:8px;background:white;color:inherit;padding:.55rem .85rem}
+button:hover{background:#eaf4f3} .primary,button[aria-current=true]{background:var(--teal);color:white;border-color:var(--teal)} button:disabled{opacity:.55;cursor:default}
+nav button{text-align:left;display:flex;justify-content:space-between;gap:.5rem} :focus-visible{outline:3px solid #a34b00;outline-offset:3px}
+progress{width:100%;accent-color:var(--teal)} .meta{font-size:.86rem;color:#415671;font-weight:650;margin-bottom:.5rem}
+pre{white-space:pre;overflow:auto;background:var(--navy);color:#edfaff;padding:1rem;border-radius:8px;line-height:1.55} code{font-family:ui-monospace,monospace}
+input:not([type=radio]),select,textarea{width:100%;border:1px solid #829bb1;border-radius:7px;padding:.55rem;color:inherit;background:white}
+textarea{min-height:8rem;font-family:monospace} .option{display:flex;align-items:center;gap:.65rem;border:1px solid #d1dfeb;border-radius:8px;padding:.55rem .7rem;margin:.45rem 0;cursor:pointer}
+input[type=radio]{accent-color:var(--teal)} fieldset{border:0;padding:0;margin:0;min-width:0} legend{font-weight:700;margin-bottom:.5rem}
+.actions{display:flex;flex-wrap:wrap;gap:.55rem;margin-top:1rem} details{margin-top:.9rem} summary{cursor:pointer;color:var(--teal);font-weight:650}
+.feedback{margin-top:1rem;padding:.75rem 1rem;background:#fff2d9;border-radius:8px;white-space:pre-line} .feedback:empty{display:none} .correct{background:#d8f5e8}
+table{border-collapse:collapse;margin:.65rem 0;width:min(100%,420px)} th,td{border:1px solid #b5c7d8;padding:.4rem;text-align:center} canvas{max-width:100%;height:auto}
+@media(max-width:680px){main{grid-template-columns:1fr} nav{grid-template-columns:1fr 1fr} aside,article{padding:1rem}}
+</style>
+</head>
+<body>
+<header><p>YEAR 9 COMPUTER SCIENCE</p><h1>Midyear revision</h1><p>Choose a topic, try a question and check your reasoning.</p></header>
+<main>
+<aside aria-label="Topics and progress"><h2>Topics</h2><nav id="topics" aria-label="Revision topics"></nav><p class="meta" id="progressText" style="margin-top:1rem"></p><progress id="progress" aria-label="Questions completed"></progress></aside>
+<article aria-labelledby="title"><p class="meta" id="position"></p><h2 id="title" tabindex="-1"></h2>
+<form id="practice"><div id="question"></div><div class="actions" id="actions"></div></form>
+<div id="feedback" class="feedback" role="status"></div>
+<details id="hint"><summary>Show a hint</summary><p id="hintText"></p></details>
+<div class="actions"><button id="back">Previous</button><button id="next">Next question</button></div>
+<noscript>Enable JavaScript to answer questions and get feedback.</noscript></article>
+</main>
+<script>
+'use strict';
+const choice = (prompt, options, answer, hint, explanation, code) => ({prompt, options, answer, hint, explanation, code});
+const written = (prompt, answer, hint, explanation, code) => ({prompt, answer, hint, explanation, code});
+const bank = [
+['Python loops', [
+  written('What values are printed? Enter them in order, separated by spaces.', '4 6 8 10', 'Read range as start, stop, step.', 'Start at 4 and add 2 each time. The stop value, 12, is excluded.', 'for lane in range(4, 12, 2):\n    print(lane)'),
+  written('What is the final score?', '21', 'Write down the score after each pass.', 'The score moves from 6 to 11, then 16, then 21.', 'score = 6\nfor round_number in range(1, 4):\n    score = score + 5\nprint(score)'),
+  written('How many times is the loop body executed?', '4', 'List the battery readings before each decrease.', 'The body runs at 19, 15, 11 and 7. At 3 the condition is false.', 'battery = 19\nwhile battery > 6:\n    battery = battery - 4'),
+  choice('The display should show 9, 6 and 3, then stop. Which change makes this happen?', ['Move print above the loop', 'Add 3 to fuel after printing', 'Subtract 3 from fuel inside the loop after printing', 'Change the condition to fuel < 0'], 2, 'The variable in the condition needs to move towards zero.', 'Subtracting 3 inside the loop allows fuel to reach 0 and makes the condition false.', 'fuel = 9\nwhile fuel > 0:\n    print(fuel)'),
+  choice('What is printed when the program runs?', ['Spray', 'Finished', 'Spray followed by Finished', 'Nothing'], 1, 'A while loop checks its condition before entering the body.', '72 is already above the threshold, so the loop body is skipped.', 'humidity = 72\nwhile humidity < 55:\n    print("Spray")\n    humidity = humidity + 5\nprint("Finished")')
+]],
+['Devices and sensors', [
+  choice('A wildlife team wants its field computer to record bird calls. Which input device should it connect?', ['Speaker', 'Projector', 'Microphone', 'Monitor'], 2, 'Which device captures sound?', 'A microphone converts sound into an input signal. A speaker produces sound as output.'),
+  choice('A navigation device must warn a cyclist using sound. Which component sends the warning to the cyclist?', ['Buzzer', 'Microphone', 'GPS receiver', 'Temperature sensor'], 0, 'Follow the direction the information travels.', 'The buzzer produces an audible output. The other devices supply input to the system.'),
+  choice('A museum kiosk needs to identify a visitor’s membership card using its printed pattern of black bars. Which device is most suitable?', ['Humidity sensor', 'Barcode reader', 'Speaker', 'Fingerprint scanner'], 1, 'The printed pattern encodes the membership number.', 'A barcode reader captures the bar pattern and decodes the number.'),
+  choice('Which sensor should a cold-storage controller use to decide when to switch the cooling on?', ['Infrared motion sensor', 'Humidity sensor', 'Sound sensor', 'Temperature sensor'], 3, 'The controller needs to know how warm the storage area is.', 'A temperature sensor measures how warm or cold the storage area is.'),
+  choice('A drying cabinet should detect when the air has become too damp. Which sensor should it use?', ['Humidity sensor', 'Microphone', 'Pressure sensor', 'Infrared beam sensor'], 0, 'The quantity being measured is moisture in the air.', 'A humidity sensor measures moisture in the air.'),
+  choice('A running track has an invisible light beam across the finish line. Which input device can detect when a runner breaks that beam?', ['Temperature sensor', 'Infrared receiver', 'Humidity sensor', 'Speaker'], 1, 'Think about which device can detect invisible light.', 'An infrared receiver detects the beam. Its signal changes when the runner blocks it.')
+]],
+['Logic gates', [
+  {...choice('Identify the gate in this diagram.', ['OR', 'NOT', 'AND'], 0, 'Look at the curved edge where the two inputs enter.', 'An OR gate has a curved input edge and produces 1 when at least one input is 1.'), gate:'OR'},
+  {...choice('Which gate has this symbol?', ['NOT', 'AND', 'OR'], 1, 'Look for a straight input edge and a rounded right edge.', 'This is the AND symbol. Both inputs must be 1 for its output to be 1.'), gate:'AND'},
+  {...choice('Which gate is shown?', ['AND', 'OR', 'NOT'], 2, 'Count the inputs and look for the bubble at the output.', 'The single input and inversion bubble identify a NOT gate.'), gate:'NOT'},
+  {...written('A lift moves only if its door is closed AND a floor is selected. Complete the output column.', '0 1 0 0', 'The two conditions must both be 1.', 'Only the row with two 1s produces 1.'), rows:[[1,0],[1,1],[0,0],[0,1]]},
+  {...written('A greenhouse alarm sounds when its door OR window opens. Complete the output column.', '1 0 1 1', 'An OR gate also outputs 1 when both inputs are 1.', 'Only the row with two 0s produces 0.'), rows:[[0,1],[0,0],[1,1],[1,0]]},
+  {...written('A light switches on when daylight is absent. Complete the output for NOT daylight.', '0 1', 'Invert each input bit.', 'When daylight is 1, the output is 0. When daylight is 0, the output is 1.'), rows:[[1],[0]]}
+]],
+['Number systems', [
+  written('Convert 10110 from binary to denary.', '22', 'Write the place values 16, 8, 4, 2, 1.', 'The 1s are in the 16, 4 and 2 columns. Their sum is 22.'),
+  written('Convert 110011 from binary to denary.', '51', 'Only include place values that have a 1 above them.', '32 + 16 + 2 + 1 = 51.'),
+  written('Write 38 as an 8-bit binary number.', '00100110', 'Start with 128, 64, 32, 16, 8, 4, 2, 1. Keep all eight places.', '38 = 32 + 4 + 2. Including leading zeros gives 00100110.'),
+  written('Write 201 as an 8-bit binary number.', '11001001', 'Take the largest place value that fits, then work with the remainder.', '201 = 128 + 64 + 8 + 1, giving 11001001.'),
+  written('Convert 01111100 from binary to two hexadecimal digits.', '7C', 'Split the bits into two groups of four. Values 10–15 use A–F.', '0111 is 7. 1100 is 12, which is C in hexadecimal.'),
+  written('Convert 10010101 from binary to two hexadecimal digits.', '95', 'Convert 1001 and 0101 separately.', '1001 = 8 + 1 and 0101 = 4 + 1, so the hexadecimal digits are 9 and 5.')
+]],
+['Python types and decisions', [
+  choice('Which type stores whether a parcel has been delivered?', ['str', 'int', 'float', 'bool'], 3, 'There are only two states.', 'A Boolean stores True or False.'),
+  choice('A weather station records wind speed as 8.75 km/h. What type should store that numeric reading?', ['float', 'str', 'int', 'bool'], 0, 'The decimal part must be kept.', 'A float can represent a number with a fractional part.'),
+  choice('Choose the types for a locker code such as "007" and a count of 24 lockers, in that order.', ['int and str', 'str and int', 'float and bool', 'int and float'], 1, 'Think about keeping the leading zeros in the code.', 'A string preserves the code exactly. An integer stores the whole-number count.'),
+  choice('A robot may enter a tunnel if its width is at most 42 cm. Which condition allows exactly the right widths?', ['width < 42', 'width >= 42', 'width <= 42', 'width != 42'], 2, 'Test widths of 41, 42 and 43.', '<= accepts both 41 and 42 and rejects 43.'),
+  choice('What does the program print?', ['26', '8', '6', '222222'], 3, 'What does input() return when there is no conversion?', 'input() returns a string. Multiplying the string "2" by 3 gives "222", and multiplying that result by 2 gives "222222".', 'label = input("Enter 2: ")\nrepeated = label * 3\nprint(repeated * 2)'),
+  choice('Which line uses the wrong operator for checking whether the parcel is still in transit, and what should replace it?', ['Line 1: replace = with ==', 'Line 2: replace == with !=', 'Line 2: replace == with >=', 'Line 3: replace print with input'], 1, 'The condition should be true for any state other than "delivered".', 'Line 2 needs !=, which means “is not equal to”.', '1  state = "sorting"\n2  if state == "delivered":\n3      print("In transit")'),
+  choice('Which repair keeps the message inside the if block?', ['Remove the colon', 'Indent the print line', 'Replace < with >', 'Put quotes around distance'], 1, 'Python uses spaces at the start of a line to define blocks.', 'Indent the print line so it belongs to the if block.', 'distance = 18\nif distance < 25:\nprint("Nearby")'),
+  {prompt:'Build a parcel price program. It reads a whole-number weight in grams. It prints "Heavy" above 750 g, "Standard" from 250 g to 750 g inclusive, and "Light" below 250 g. Match each numbered blank to its Python code.', code:'weight = [1]\nif [2]:\n    print("Heavy")\nelif [3]:\n    print("Standard")\n[4]:\n    print("Light")', blanks:[
+    ['Input and conversion', ['input("Weight: ")', 'int(input("Weight: "))', 'int("Weight: ")'], 1],
+    ['Heavy condition', ['weight >= 750', 'weight < 750', 'weight > 750'], 2],
+    ['Standard condition', ['weight <= 250', 'weight >= 250', 'weight == 250'], 1],
+    ['Remaining branch', ['else', 'elif', 'if'], 0]
+  ], hint:'Test the boundary values 249, 250, 750 and 751. Remember that elif is reached only when the first condition is false.', explanation:'Convert the input to int. Test weight > 750 first, then weight >= 250. The else branch handles everything below 250.'},
+  {prompt:'Write your own version from scratch. A bike hire kiosk takes the rider’s age as a whole number. Print "Junior" for under 12, "Youth" from 12 to 17, and "Adult" for 18 and over. Predict the outputs for ages 11, 12, 17 and 18 before comparing your solution.', model:'age = int(input("Age: "))\nif age < 12:\n    print("Junior")\nelif age < 18:\n    print("Youth")\nelse:\n    print("Adult")', hint:'Once the first test fails, the age must already be at least 12.', explanation:'Self-check your code. Ages 11, 12, 17 and 18 should produce Junior, Youth, Youth and Adult. Check that your program converts the input to int, uses the right boundaries and prints one message each time.'}
+]]
+];
+const byId = id => document.getElementById(id);
+const create = (name, value, parent) => {
+  const element = document.createElement(name);
+  if (value !== undefined) element.textContent = value;
+  parent.append(element);
+  return element;
+};
+const storageKey = 'year9-cs-midyear-v1';
+let completed = new Set();
+try {
+  const stored = JSON.parse(localStorage.getItem(storageKey) || '[]');
+  if (Array.isArray(stored)) completed = new Set(stored);
+} catch {}
+let topic = 0;
+let index = 0;
+const total = bank.reduce((sum, [, questions]) => sum + questions.length, 0);
+const keyFor = (group, item) => group + ':' + item;
+
+function updateProgress() {
+  bank.forEach(([, questions], group) => {
+    const count = questions.filter((_, item) => completed.has(keyFor(group, item))).length;
+    byId('topics').children[group].lastChild.textContent = count + '/' + questions.length;
+  });
+  const count = bank.reduce((sum, [, questions], group) =>
+    sum + questions.filter((_, item) => completed.has(keyFor(group, item))).length, 0);
+  byId('progress').max = total;
+  byId('progress').value = count;
+  byId('progressText').textContent = count + ' of ' + total + ' questions completed';
+}
+
+function drawGate(gate, parent) {
+  const canvas = create('canvas', undefined, parent);
+  canvas.width = 250;
+  canvas.height = 110;
+  canvas.setAttribute('role', 'img');
+  canvas.setAttribute('aria-label', {
+    AND:'Two inputs, a flat left edge, a semicircular right edge and one output.',
+    OR:'Two inputs, an inward curved left edge, two curves meeting at a point on the right and one output.',
+    NOT:'One input, a right-facing triangle, a small circle at its tip and one output.'
+  }[gate]);
+  const ctx = canvas.getContext('2d');
+  ctx.strokeStyle = '#142844';
+  ctx.lineWidth = 3;
+  ctx.beginPath();
+  if (gate === 'NOT') {
+    ctx.moveTo(30,55); ctx.lineTo(80,55);
+    ctx.moveTo(80,20); ctx.lineTo(150,55); ctx.lineTo(80,90); ctx.closePath();
+    ctx.moveTo(166,55); ctx.arc(158,55,8,0,Math.PI * 2);
+    ctx.moveTo(166,55); ctx.lineTo(220,55);
+  } else if (gate === 'AND') {
+    ctx.moveTo(30,37); ctx.lineTo(80,37);
+    ctx.moveTo(30,73); ctx.lineTo(80,73);
+    ctx.moveTo(80,15); ctx.lineTo(125,15); ctx.arc(125,55,40,-Math.PI/2,Math.PI/2);
+    ctx.lineTo(80,95); ctx.closePath();
+    ctx.moveTo(165,55); ctx.lineTo(220,55);
+  } else {
+    ctx.moveTo(30,37); ctx.lineTo(90,37);
+    ctx.moveTo(30,73); ctx.lineTo(90,73);
+    ctx.moveTo(75,15); ctx.quadraticCurveTo(140,10,175,55);
+    ctx.quadraticCurveTo(140,100,75,95); ctx.quadraticCurveTo(110,55,75,15);
+    ctx.moveTo(175,55); ctx.lineTo(220,55);
+  }
+  ctx.stroke();
+}
+
+function render(focus = true) {
+  const [name, questions] = bank[topic];
+  const item = questions[index];
+  const question = byId('question');
+  const actions = byId('actions');
+  const feedback = byId('feedback');
+  question.replaceChildren();
+  actions.replaceChildren();
+  feedback.replaceChildren();
+  feedback.className = 'feedback';
+  byId('title').textContent = name;
+  byId('position').textContent = 'Question ' + (index + 1) + ' of ' + questions.length;
+  const fields = create('fieldset', undefined, question);
+  create('legend', item.prompt, fields);
+  if (item.code) create('code', item.code, create('pre', undefined, fields));
+  if (item.gate) drawGate(item.gate, fields);
+  if (item.options) {
+    item.options.forEach((option, value) => {
+      const label = create('label', undefined, fields);
+      label.className = 'option';
+      const input = create('input', undefined, label);
+      input.type = 'radio';
+      input.name = 'answer';
+      input.value = value;
+      input.required = true;
+      label.append(document.createTextNode(option));
+    });
+  } else if (item.blanks) {
+    item.blanks.forEach(([label, options], i) => {
+      const wrapper = create('label', (i + 1) + '. ' + label, fields);
+      const select = create('select', undefined, wrapper);
+      select.name = 'blank' + i;
+      select.required = true;
+      create('option', 'Choose code', select).value = '';
+      options.forEach((option, value) => { create('option', option, select).value = value; });
+    });
+  } else if (item.rows) {
+    const table = create('table', undefined, fields);
+    const headings = create('tr', undefined, create('thead', undefined, table));
+    const names = item.rows[0].length === 1 ? ['Input A', 'Output'] : ['Input A', 'Input B', 'Output'];
+    names.forEach(label => { create('th', label, headings).scope = 'col'; });
+    const body = create('tbody', undefined, table);
+    item.rows.forEach((bits, i) => {
+      const row = create('tr', undefined, body);
+      bits.forEach(bit => create('td', bit, row));
+      const select = create('select', undefined, create('td', undefined, row));
+      select.setAttribute('aria-label', 'Output for input ' + bits.join(', '));
+      select.name = 'row' + i;
+      select.required = true;
+      for (const [label, value] of [['Choose',''],['0','0'],['1','1']]) create('option', label, select).value = value;
+    });
+  } else {
+    const label = create('label', item.model ? 'Your Python code' : 'Your answer', fields);
+    const input = create(item.model ? 'textarea' : 'input', undefined, label);
+    input.name = 'answer';
+    input.required = true;
+    input.autocomplete = 'off';
+    input.spellcheck = false;
+  }
+  create('button', item.model ? 'Compare with model' : 'Check answer', actions).className = 'primary';
+  byId('practice').onsubmit = event => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    const input = (data.get('answer') || '').trim();
+    feedback.replaceChildren();
+    feedback.className = 'feedback';
+    if (item.model) {
+      if (!input) { feedback.textContent = 'Write a solution first.'; return; }
+      feedback.textContent = item.explanation;
+      create('code', item.model, create('pre', undefined, feedback));
+      markComplete();
+      return;
+    }
+    let correct;
+    let guidance = 'Try again. ' + item.hint;
+    if (item.options) {
+      correct = Number(input) === item.answer;
+    } else if (item.blanks) {
+      const incorrect = item.blanks.flatMap(([, , answer], i) => Number(data.get('blank' + i)) === answer ? [] : [i + 1]);
+      correct = incorrect.length === 0;
+      guidance = 'Recheck ' + (incorrect.length === 1 ? 'blank ' : 'blanks ') + incorrect.join(', ') + '. ' + item.hint;
+    } else if (item.rows) {
+      const expected = item.answer.split(' ');
+      const incorrect = item.rows.flatMap((_, i) => data.get('row' + i) === expected[i] ? [] : [i + 1]);
+      correct = incorrect.length === 0;
+      guidance = 'Recheck ' + (incorrect.length === 1 ? 'row ' : 'rows ') + incorrect.join(', ') + '. ' + item.hint;
+    } else {
+      const cleaned = item.answer.includes(' ') ? input.replace(/[\s,]+/g, ' ') : input.replace(/\s+/g, '').toUpperCase();
+      correct = cleaned === item.answer;
+    }
+    if (correct) {
+      feedback.classList.add('correct');
+      feedback.textContent = 'Correct. ' + item.explanation;
+      markComplete();
+    } else {
+      feedback.textContent = guidance;
+    }
+  };
+  if (!item.model) {
+    const reveal = create('button', 'Show worked answer', actions);
+    reveal.type = 'button';
+    reveal.onclick = () => {
+      let answer = item.answer;
+      if (item.options) answer = item.options[item.answer];
+      if (item.blanks) answer = item.blanks.map(([, options, key], i) => (i + 1) + '. ' + options[key]).join('\n');
+      feedback.className = 'feedback';
+      feedback.textContent = 'Answer\n' + answer + '\n\n' + item.explanation;
+    };
+  }
+  byId('hint').open = false;
+  byId('hintText').textContent = item.hint;
+  byId('back').disabled = topic === 0 && index === 0;
+  byId('next').disabled = topic === bank.length - 1 && index === questions.length - 1;
+  byId('next').textContent = index === questions.length - 1 && topic < bank.length - 1 ? 'Next topic' : 'Next question';
+  [...byId('topics').children].forEach((button, group) => button.setAttribute('aria-current', group === topic));
+  if (focus) byId('title').focus();
+}
+
+function markComplete() {
+  completed.add(keyFor(topic, index));
+  try { localStorage.setItem(storageKey, JSON.stringify([...completed])); } catch {}
+  updateProgress();
+}
+bank.forEach(([name], group) => {
+  const button = create('button', name, byId('topics'));
+  create('span', undefined, button);
+  button.onclick = () => { topic = group; index = 0; render(); };
+});
+byId('back').onclick = () => {
+  if (index > 0) index--;
+  else { topic--; index = bank[topic][1].length - 1; }
+  render();
+};
+byId('next').onclick = () => {
+  if (index < bank[topic][1].length - 1) index++;
+  else { topic++; index = 0; }
+  render();
+};
+updateProgress();
+render(false);
+</script>
+</body>
+</html>
