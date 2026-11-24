@@ -88,6 +88,35 @@ const bank = [
   {prompt:'Write your own version from scratch. A bike hire kiosk takes the rider’s age as a whole number. Print "Junior" for under 12, "Youth" from 12 to 17, and "Adult" for 18 and over. Predict the outputs for ages 11, 12, 17 and 18 before comparing your solution.', model:'age = int(input("Age: "))\nif age < 12:\n    print("Junior")\nelif age < 18:\n    print("Youth")\nelse:\n    print("Adult")', hint:'Once the first test fails, the age must already be at least 12.', explanation:'Self-check your code. Ages 11, 12, 17 and 18 should produce Junior, Youth, Youth and Adult. Check that your program converts the input to int, uses the right boundaries and prints one message each time.'}
 ]]
 ];
+const challengeQuestions = [
+  [
+    written('What final total is printed? Make a trace table for step and total.', '4', 'Work out the values of step first. For each one, check the remainder when divided by 2.', 'step takes 2, 3, 4 and 5. The total becomes 2, 1, 5 and finally 4.', 'total = 0\nfor step in range(2, 6):\n    if step % 2 == 0:\n        total = total + step\n    else:\n        total = total - 1\nprint(total)'),
+    written('What two values are printed? Give the final charge followed by the number of stops.', '13 3', 'Trace both variables. The amount added to charge changes after each pass.', 'The pairs (charge, stops) after each pass are (6, 1), (9, 2) and (13, 3). At 13 the condition is false.', 'charge = 4\nstops = 0\nwhile charge < 11:\n    charge = charge + stops + 2\n    stops = stops + 1\nprint(charge, stops)')
+  ],
+  [
+    choice('An automated greenhouse must maintain a safe air temperature and reduce excess moisture. Which set of devices gives it both measurements and a way to act?', ['Temperature sensor, humidity sensor and extractor fan', 'Temperature sensor, infrared receiver and display', 'Humidity sensor, extractor fan and speaker', 'Temperature sensor, humidity sensor and microphone'], 0, 'Look for two inputs that measure different conditions and one device that changes the environment.', 'The temperature and humidity sensors supply measurements. The extractor fan moves air out of the greenhouse.'),
+    choice('A cold room must sound an alarm only when its door is open AND its temperature is above 6°C. Which setup gives the controller enough information and produces the warning?', ['One temperature sensor and one buzzer', 'A door-position sensor and a temperature sensor', 'A door-position sensor, a temperature sensor and a buzzer', 'A buzzer, speaker and monitor'], 2, 'The controller needs separate input for each condition, plus an audible output.', 'The two sensors supply the door state and temperature. The buzzer sounds only when both tests are true.')
+  ],
+  [
+    {...written('A lamp uses the rule (A OR B) AND NOT C. Complete all eight outputs. A and B are switches, and C is the maintenance override.', '0 0 1 0 1 0 1 0', 'Work out A OR B and NOT C separately, then AND those results.', 'Any row with C = 1 gives 0. With C = 0, the output is 1 if at least one of A or B is 1.', 'Output = (A OR B) AND (NOT C)'), rows:[[0,0,0],[0,0,1],[0,1,0],[0,1,1],[1,0,0],[1,0,1],[1,1,0],[1,1,1]]},
+    choice('A room should be marked occupied when exactly one of two desk sensors is active. Which expression gives the right output for all four input pairs?', ['A OR B', 'NOT (A AND B)', 'A AND B', '(A OR B) AND NOT (A AND B)'], 3, 'The output must be 0 for both 00 and 11.', 'A OR B removes the 00 case. NOT (A AND B) removes the 11 case. Combining them with AND leaves only 01 and 10.')
+  ],
+  [
+    written('A device register holds B6 in hexadecimal. Convert it to 8-bit binary and then clear the four leftmost bits. Enter the new value in denary.', '6', 'Convert each hex digit to four bits. Keep only the bits represented by the second hex digit.', 'B6 is 10110110. Clearing the leftmost four bits gives 00000110, which is 4 + 2 = 6.'),
+    written('Convert denary 173 to hexadecimal. Enter exactly two hexadecimal digits.', 'AD', 'Divide by 16. The quotient gives the first digit and the remainder gives the second.', '173 = 10 × 16 + 13. In hexadecimal 10 is A and 13 is D, so the result is AD.')
+  ],
+  [
+    choice('For which input does the program disagree with the rule “priority starts at 80, standard starts at 50, and everything below 50 is review”?', ['49', '50', '79', '80'], 3, 'Check the values exactly on the boundaries. Compare > with >=.', 'At 80 the first condition is false, so the code prints Standard. Change the first comparison to score >= 80.', 'score = int(input("Score: "))\nif score > 80:\n    print("Priority")\nelif score >= 50:\n    print("Standard")\nelse:\n    print("Review")'),
+    {prompt:'Build a controller that reads a battery percentage and switches off when the battery is below 15 OR when the operator enters "Y" for an emergency stop. If neither condition applies, it prints "Ready" at 60 or above and "Charge soon" otherwise.', code:'battery = [1]\nemergency = input("Emergency stop (Y/N)? ")\nif [2]:\n    print("Switch off")\nelif [3]:\n    print("Ready")\nelse:\n    print("Charge soon")', blanks:[
+      ['Read a whole-number percentage', ['input("Battery: ")', 'int(input("Battery: "))', 'str(input("Battery: "))'], 1],
+      ['Check either reason to switch off', ['battery < 15 and emergency == "Y"', 'battery <= 15 or emergency == "Y"', 'battery < 15 or emergency == "Y"'], 2],
+      ['Check whether the battery is ready', ['battery > 60', 'battery >= 60', 'battery < 60'], 1]
+    ], hint:'Try 15 with N, 60 with N and 100 with Y. Check which condition wins each time.', explanation:'Use int for the battery reading and or because either stop condition is sufficient. At 15 with N it prints Charge soon. At 60 with N it prints Ready. At 100 with Y it prints Switch off.'}
+  ]
+];
+challengeQuestions.forEach((questions, group) => {
+  bank[group][1].push(...questions.map(question => ({...question, challenge: true})));
+});
 const byId = id => document.getElementById(id);
 const create = (name, value, parent) => {
   const element = document.createElement(name);
@@ -164,7 +193,7 @@ function render(focus = true) {
   feedback.replaceChildren();
   feedback.className = 'feedback';
   byId('title').textContent = name;
-  byId('position').textContent = 'Question ' + (index + 1) + ' of ' + questions.length;
+  byId('position').textContent = 'Question ' + (index + 1) + ' of ' + questions.length + (item.challenge ? ' · Challenge' : '');
   const fields = create('fieldset', undefined, question);
   create('legend', item.prompt, fields);
   if (item.code) create('code', item.code, create('pre', undefined, fields));
@@ -192,7 +221,7 @@ function render(focus = true) {
   } else if (item.rows) {
     const table = create('table', undefined, fields);
     const headings = create('tr', undefined, create('thead', undefined, table));
-    const names = item.rows[0].length === 1 ? ['Input A', 'Output'] : ['Input A', 'Input B', 'Output'];
+    const names = ['Input A', 'Input B', 'Input C'].slice(0, item.rows[0].length).concat('Output');
     names.forEach(label => { create('th', label, headings).scope = 'col'; });
     const body = create('tbody', undefined, table);
     item.rows.forEach((bits, i) => {
