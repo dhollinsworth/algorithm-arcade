@@ -1,0 +1,457 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Document Rescue — The Midnight Edition</title>
+<style>
+:root{--night:#121112;--paper:#fff2d9;--yellow:#f9e746;--pink:#fc6c93;--ink:#242019;--muted:#d1c8b4;--cyan:#85e5e0}*{box-sizing:border-box}body{margin:0;background:var(--night);color:var(--paper);font:1rem/1.48 system-ui,sans-serif}button,input{font:inherit}button{cursor:pointer}button:focus-visible,summary:focus-visible,input:focus-visible{outline:3px dashed var(--pink);outline-offset:4px}button:disabled{cursor:default}.mast{border-bottom:2px solid #685d4b;background:#1c1917}.mast>div{max-width:1350px;margin:auto;padding:12px 28px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}.brand,strong.mono,.kicker,.status,.rail button,.edition,.toolbar button{font-family:ui-monospace,monospace;font-weight:800}.brand{color:var(--yellow)}.status{color:var(--cyan)}main{max-width:1350px;margin:auto;padding:28px}.intro{display:flex;align-items:end;justify-content:space-between;gap:28px;margin-bottom:22px}.intro p{max-width:30ch;color:var(--muted);margin:0 0 6px}.kicker{font-size:.9rem;letter-spacing:.09em;text-transform:uppercase;color:var(--pink)}h1,h2,h3,p{margin-top:0}h1{font:900 clamp(2.8rem,7vw,6.5rem)/.85 Georgia,serif;letter-spacing:-.065em;margin:8px 0 0;color:var(--yellow)}.rail{display:flex;gap:6px;overflow-x:auto;padding:5px 5px 10px;margin:0 -5px}.rail button{min-width:max-content;flex:1;background:#272321;color:var(--paper);border:1px solid #685d4b;padding:11px 13px;min-height:44px}.rail button[aria-current=true]{color:var(--ink);background:var(--pink);border-color:var(--pink)}.workbench{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.08fr);border:1px solid #685d4b}.brief{padding:clamp(17px,3vw,34px);min-width:0}.brief h2{font:900 clamp(1.7rem,4vw,3.1rem)/1.03 Georgia,serif;margin:8px 0 12px}.instruction{color:var(--muted);margin-bottom:12px}.learn{border-left:4px solid var(--cyan);padding:8px 11px;background:#262725;margin:0 0 14px}.learn summary{cursor:pointer;font-weight:800;color:var(--cyan)}.learn p{margin:6px 0 1px}.choices{display:grid;gap:7px}.choices button,.primary,.secondary{min-height:44px;padding:9px 13px;text-align:left;font-weight:700;border:1px solid #756b5a;background:#2a2520;color:var(--paper)}.choices button[aria-pressed=true]{border-color:var(--yellow);color:var(--yellow);background:#353020}.choices button.correct{border-color:var(--cyan);color:var(--cyan)}.toolbar{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}.toolbar button{min-height:44px}.primary{background:var(--yellow);color:var(--ink);border-color:var(--yellow)}.secondary{border-color:var(--muted)}.feedback{min-height:25px;margin:12px 0 0;color:var(--cyan)}.feedback.error{color:#ff9eb7}.stage{display:grid;place-items:center;align-content:center;gap:14px;min-height:435px;padding:22px;background:repeating-linear-gradient(-42deg,#302a29 0,#302a29 11px,#332c2b 11px,#332c2b 22px)}.paper{background:var(--paper);color:var(--ink);width:min(100%,410px);min-height:335px;padding:22px;box-shadow:7px 9px 0 #0c0b0b;overflow-wrap:anywhere}.paper.landscape{width:100%;min-height:245px}.paper.gutter{border-left:22px solid #e4c8a5}.paper.wide-margin{padding-inline:45px}.edition{border-top:5px solid var(--ink);border-bottom:1px solid;font-size:.85rem;padding:4px 0;text-transform:uppercase}.paper h3{font:900 clamp(1.42rem,3vw,2.1rem)/1 Georgia,serif;margin:10px 0}.caption{color:var(--muted);font-family:monospace;margin:0}.object{background:#53254b;color:#fff4de;padding:13px;margin:5px;width:108px;min-height:56px;text-align:center;font-weight:800;display:inline-block}.object.shape{border-radius:50%}.wrap-square,.wrap-tight{float:left;margin:0 12px 6px 0}.wrap-tight{border-radius:50%;shape-outside:circle(50%);width:102px;height:102px;display:grid;place-items:center}.wrap-above-below{display:block;margin:9px auto}.art{font-size:1.55rem}.copy{font-family:Georgia,serif}.two{columns:2;column-gap:24px;column-rule:1px solid #9f826b}.page-rule{border-top:2px dashed #7f2864;margin:14px 0;padding-top:6px}.paper table{border-collapse:collapse;width:100%;font-size:.86rem}.paper td,.paper th{border:1px solid;padding:5px}.paper .no-grid td,.paper .no-grid th{border-color:transparent}.page-foot{border-top:1px solid;margin-top:20px;padding-top:5px;font:700 .8rem monospace}.proof mark{background:#f8d02c;color:#241a1a}.jump{color:#632370;text-decoration:underline}.finish{margin-top:25px;max-width:54ch}.saved{font-size:.9rem;color:var(--muted);margin:15px 0 0}.rail .exam-tab{background:var(--yellow);color:var(--ink)}.rail .exam-tab[aria-current=true]{background:var(--pink)}.exam-score{font:800 .95rem monospace;color:var(--cyan)}.exam-answer{min-height:130px;resize:vertical}.exam-answer[readonly]{color:var(--muted)}.mark-points{margin:12px 0;padding:9px 12px;border:1px dashed var(--cyan)}.mark-points label{display:flex;align-items:start;gap:8px;padding:5px 0}.mark-points input{accent-color:var(--cyan);margin-top:.35em}.saved+.primary{margin-top:8px}.entry{width:100%;min-height:44px;padding:8px 12px;background:#2a2520;border:1px solid #756b5a;color:var(--paper)}[hidden]{display:none!important}@media(max-width:760px){main{padding:18px}.intro{display:block}.intro p{margin-top:12px}.workbench{grid-template-columns:1fr}.stage{min-height:300px;padding:18px}.paper{min-height:270px}.mast>div{padding-inline:18px}}@media(prefers-reduced-motion:no-preference){.paper{animation:print .23s ease-out}@keyframes print{from{translate:0 5px;opacity:.65}to{translate:0;opacity:1}}}
+body{background:radial-gradient(ellipse at 78% 0,#34222d 0,transparent 52%),var(--night)}
+.intro h1{text-shadow:4px 4px 0 #78394e}
+.rail .arcade-tab{background:var(--yellow);color:var(--ink)}
+.rail .lab-tab{background:var(--cyan);color:var(--ink)}
+.rail .arcade-tab[aria-current=true],.rail .lab-tab[aria-current=true]{background:var(--pink)}
+.brief>.primary+.secondary,.brief>.secondary+.secondary,.brief>.exam-score~button{margin:4px 6px 4px 0}
+.stage{position:relative;overflow:hidden}
+.stage:has(.belt),.stage:has(.idle-belt){background:repeating-linear-gradient(-45deg,#2a241b 0 14px,#453621 14px 28px)}
+.stage:has(.belt) .paper,.stage:has(.idle-belt) .paper{background:#232026;color:var(--paper);border:2px solid #a88c70;box-shadow:7px 8px 0 #151217,inset 0 0 0 6px #352d32;display:grid;gap:14px}
+.machine-title{font:900 clamp(2rem,6vw,3.4rem)/.9 Georgia,serif;color:var(--yellow);text-shadow:3px 3px #8f4860;align-self:center}
+.machine-footer{font:800 .95rem monospace;color:var(--cyan);letter-spacing:.07em}
+.belt,.idle-belt{position:relative;overflow:hidden;border:5px solid #756270;border-radius:12px;background:repeating-linear-gradient(0deg,#453845 0 15px,#2d252d 15px 20px);min-height:210px}
+.idle-belt{min-height:80px;display:flex;align-items:center;justify-content:space-around;color:var(--yellow);font-size:2.4rem}
+.parcel{position:absolute;left:50%;translate:-50% 0;background:var(--paper);border:3px solid #b69d7c;padding:10px 14px;color:var(--ink);font:900 1rem monospace;box-shadow:4px 4px 0 #18131a;white-space:nowrap}
+.parcel[data-result=ok]{background:var(--cyan);border-color:#5cafa9}
+.parcel[data-result=retry]{background:var(--pink);border-color:#b14a70}
+.deadline{height:10px;background:#431d39;overflow:hidden}
+.deadline span{display:block;height:100%;background:var(--yellow);transform-origin:left}
+.arcade-question{font-size:clamp(1.2rem,2.5vw,1.6rem);font-weight:800;line-height:1.3}
+.chutes{display:grid;gap:7px}
+.chute{border:1px solid #a68e87;border-left:7px solid var(--cyan);min-height:44px;text-align:left;padding:9px 12px;font-weight:800;background:#342a32;color:var(--paper)}
+.chute:nth-child(2){border-left-color:var(--yellow)}
+.chute:nth-child(3){border-left-color:var(--pink)}
+.chute:hover:enabled{background:#51414b}
+.chute:disabled{opacity:.65}
+.controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,145px),1fr));gap:12px}
+.controls label{display:grid;align-content:end;gap:4px;font-weight:700}
+.controls select{font:inherit;min-height:44px;color:var(--paper);background:#342a32;border:2px solid #76616f;max-width:100%;min-width:0}
+.controls select:focus-visible{outline:3px dashed var(--pink);outline-offset:3px}
+.controls select[data-result=ok]{border-color:var(--cyan)}
+.controls select[data-result=retry]{border-color:var(--pink)}
+.layout-proof{border:solid #ddbc96;border-width:0;margin-inline:13%;padding:10px;background:#fffaed}
+.layout-proof.wide{margin-inline:0}
+.burst{position:absolute;left:50%;top:50%;pointer-events:none}
+.burst i{position:absolute;width:10px;height:12px;animation:scatter .68s ease-out both}
+@media(prefers-reduced-motion:no-preference){
+ .idle-belt span{animation:roll 2.2s ease-in-out infinite alternate}
+ .idle-belt span:nth-child(2){animation-delay:-.8s}
+ .parcel[data-result=retry]{animation:shake .3s}
+ .parcel[data-result=ok]{animation:stamp .24s}
+ .brief h2{animation:print .23s ease-out}
+}
+@media(prefers-reduced-motion:reduce){.parcel{top:35%!important}.burst{display:none}}
+@keyframes scatter{to{transform:translate(var(--x),var(--y)) rotate(250deg);opacity:0}}
+@keyframes roll{to{transform:translateX(18px) rotate(10deg)}}
+@keyframes shake{35%{transform:translateX(9px)}70%{transform:translateX(-9px)}}
+@keyframes stamp{50%{transform:scale(1.17) rotate(-4deg)}}
+.move-tile{width:100%;padding:9px;border:2px solid #8f4860;background:#fffaf0;color:#242019;text-align:left}.move-tile[aria-pressed=true]{background:#f9e746}.drop-target{border-style:dashed;background:#efe2cd}
+</style></head><body>
+<header class="mast"><div><span class="brand">DOCUMENT RESCUE / YEAR 10 ICT</span><span class="status" id="status"></span></div></header>
+<main><div class="intro"><div><div class="kicker">The school zine goes to press at midnight</div><h1>The Midnight Edition</h1></div><p>Race the conveyor in Press Panic, repair the broken edition, then take on the written exam challenge.</p></div>
+<nav class="rail" id="rail" aria-label="Newsroom desks"></nav>
+<section class="workbench"><div class="brief" id="brief"></div><div class="stage"><p class="caption" id="caption">LIVE PRINT PROOF</p><article class="paper" id="paper" aria-label="Live print proof"></article></div></section>
+<p class="saved">Practice progress stays in this browser. <a style="color:var(--cyan)" href="https://www.cambridgeinternational.org/Images/697139-2026-2028-syllabus.pdf">Cambridge syllabus</a></p></main>
+<script>
+const desks=['Copy desk','Art desk','Tables','Page setup','Type shop','Links & search','Final proof'];
+const copy='The robotics team built a vending machine that dispenses compliments. It accidentally called the headteacher “a promising beginner”. The team has now entered it in the school talent show.';
+const lessons=[
+[0,'13.1','Stop the ticket-price scandal','Create a blank document for a new issue. To change an existing issue, open it and select the exact text or number you want to edit. Check the replacement against the brief.','The correct price is KWD 1.50. Type the price exactly as printed in the brief.', 'KWD 1.50','entry'],
+[0,'13.1','Move the compliment machine story','Select or highlight the text first. Cut removes it and puts it on the clipboard. Copy keeps the original. Paste inserts the clipboard contents. Drag and drop can move selected text directly. Delete removes it.','The headline is in the wrong place. Move it below Sports without leaving a duplicate.', ['Cut and paste','Copy and paste','Delete only'],'move'],
+[1,'13.1','Raid the asset cupboard','A word processor can bring in text, images, screenshots, shapes, tables, graphs or charts and selected data from a spreadsheet or database. Select only the rows, cells or fields the brief asks for.','The editor wants cells B2:C4 from a spreadsheet, with their values arranged in rows and columns.', ['Paste the selected cells','Paste the whole sheet','Insert a decorative shape'],'asset'],
+[1,'13.1','Keep the mascot out of the text','Above and below puts text on separate lines from the object. Square fits text around the object’s bounding box. Tight follows its outline more closely. The same principles apply to images, tables and charts.','The mascot is circular. Make the copy follow its outline as closely as possible.', ['Tight','Square','Above / below'],'wrap'],
+[2,'13.2','Build the snack scoreboard','Rows run across and columns run down. A 3 × 2 table here means three rows by two columns. Cells can hold text, numbers or objects such as small images.','Build space for a heading row and two snacks. Use one column for the snack and one for the price.', ['3 rows × 2 columns','2 rows × 3 columns','2 rows × 2 columns'],'table-size'],
+[2,'13.2','Fix the scoreboard structure','Insert and delete rows or columns to change the grid. Merge joins selected neighbouring cells, for example to put one title across two columns.','Keep both price columns separate beneath the title. Stretch just the title across both.', ['Merge the two title cells','Delete the price column','Insert another row'],'merge'],
+[2,'13.2','Make the scoreboard readable','Horizontal cell alignment can be left, centre, right or justified. Vertical alignment can be top, middle or bottom. A narrow cell can wrap. Change column width or row height as needed. Shading colours a cell. Gridlines can be shown or hidden, and visible editing gridlines can differ from printable borders.','The long snack name must stay inside its cell. The price should sit at the right edge and halfway down.', ['Wrap name · right and middle price','Clip name · left and top price','Stretch the row · centre and bottom price'],'table-format'],
+[3,'13.3','Number the escape pages','A header is at the top and a footer at the bottom. Align them left, centre or right against the margins. Fields can show file information, current page, total pages, date or time. When refreshed, a field uses the current document information.','Put the issue name on the left at the top and an automatic page count on the right at the bottom.', ['Left header · right page X of Y field','Right footer · typed “Page 2 of 3”','Centred header · typed “Page 2 of 3”'],'fields'],
+[3,'17','Leave room for the staples','Page size is the paper format, such as A4. Orientation controls whether the page is portrait or landscape. Ordinary margins separate content from page edges. A gutter adds extra space at the binding.','The portrait booklet will be stapled along the left edge. Keep the same paper size and give the binding extra room.', ['Add a left gutter','Change to landscape','Make both side margins wider'],'page'],
+[3,'17','Break out of the column','A page break starts a new page. A column break starts the next column. A section break lets part of a document use different settings. To remove a manual break, show formatting marks, select the break and delete it.','The article must start at the top of the right column on the same page.', ['Insert a column break','Insert a page break','Insert a section break'],'break'],
+[3,'17','Stop the disappearing column','Set the number of columns for the selected text or section. Column width controls how much fits on each line. The gap separates the columns. A new section can use a different setup.','Keep the preview in two columns and make the gap wider so the articles are easier to tell apart.', ['Two columns · wider gap','One column · wide margins','Two columns · no gap'],'columns'],
+[4,'17','Give the lines breathing room','Line spacing controls gaps between lines within a paragraph. Typical choices are single, 1.5, double or a custom multiple. Paragraph spacing before or after controls the gap between paragraphs.','Set the article to 1.5 line spacing and add a gap after each paragraph.', ['1.5 lines · space after','Double lines · no space after','Single line · space before only'],'spacing'],
+[4,'17','Line up the decimal points','Left tabs start text at a tab stop. Right tabs end it there. Centre tabs place the middle of the text on the stop. Decimal tabs line up decimal separators even when numbers have different lengths.','Make 2.50, 12.000 and 0.7 line up on their decimal points.', ['Decimal tab','Centre tab','Left tab','Right tab'],'tabs'],
+[4,'17','Hang the second line','A first-line indent pushes in only the first line. A hanging indent leaves the first line at the margin and pushes in later lines. An ordinary left indent moves the entire paragraph.','Set up a reference entry with the author at the margin and the continuation line shifted in.', ['Hanging indent','First-line indent','Whole paragraph indent'],'indent'],
+[4,'17','Rescue the tiny numbers','Bold adds weight, italic tilts the letters and underline adds a line. Superscript raises small characters. Subscript lowers them. Change case can switch text to capitals or lower case without retyping.','Put the 2 below the baseline in H2O and turn the heading into capital letters.', ['Subscript · UPPERCASE','Superscript · lowercase','Underline · Sentence case'],'type'],
+[4,'17','Write the launch sequence','Bullets work for items where order is flexible. Numbering makes the sequence clear and updates when items are inserted, moved or removed.','Put the launch steps in a list where readers can tell the order.', ['Numbered list','Bulleted list','Three sentences in one paragraph'],'list'],
+[5,'17','Find the rogue robot','Find locates matches. Replace changes selected matches or all of them. Match case respects capitals. Whole words ignores a search term when it forms part of another word. Preview matches before replacing all.','Replace “Bot” with “Byte”. Leave “bot” and “Robot” alone.', ['Match case + whole words','Whole words only','Neither option'],'replace'],
+[5,'17','Give readers a shortcut','A bookmark marks a named location inside a document. A hyperlink points to a bookmark, web page or another file. Delete the link to remove the shortcut. Delete the bookmark to remove the location marker.','Make “Jump to results” take the reader directly to the results heading in the same issue.', ['Bookmark Results and link to it','Add the bookmark only','Link to a different website'],'links'],
+[5,'17','Retire the old shortcut','Removing a hyperlink leaves its display text in place in most word processors. Removing a bookmark deletes the named target. Check or update other links that used the deleted bookmark.','Keep the words “Old results” visible, but make them stop acting as a link.', ['Remove hyperlink','Delete the text','Only delete the bookmark'],'unlink'],
+[6,'Booklet extra','Stand up to the spellchecker','A correctly spelled specialist term may be missing from the active dictionary. Verify it first, then ignore it if it is a one-off or add it to the custom dictionary if you will use it again.','Macropus rufogriseus is verified and will appear in future issues.', ['Add the verified term to the dictionary','Accept the first suggestion','Turn off spell checking'],'proof'],
+[6,'Booklet extra','Make the logo behave','Use resize with the aspect ratio locked to preserve proportions. Crop hides an outer area. Fill colours the inside of a shape. Choose lettering that contrasts with the fill.','Make the logo smaller, without stretching it, and give it a dark fill with readable lettering.', ['Lock ratio · dark fill · pale text','Drag one side · dark fill · dark text','Crop the sides · change the gutter'],'logo'],
+[6,'Booklet extra','Catch the final layout glitch','Proofreading catches problems a spellchecker misses. Check house style, spacing, blank pages, split tables and lists, and stranded paragraph lines at page or column boundaries. House style makes fonts, colours and other design choices consistent.','One line from a paragraph is stranded at the top of the next page.', ['Use widow/orphan control','Add another blank page','Switch to centred alignment'],'widow'],
+[2,'13.2','Hide the scoreboard grid','Adjust column widths for long text and row heights for taller objects. Cell shading helps pick out headings. Show gridlines when you need editing guides. Remove printable borders if you want a clean printout.','Make the snack column wider, shade the headings and remove the visible cell borders.', ['Wide snack column · shade headings · remove borders','Equal columns · no shading · keep borders','Narrow snack column · shade prices · keep borders'],'grid-style'],
+[3,'13.3','Stop the date going stale','A header or footer can include a date, time, file name, page number or number of pages as a field. A date field set to update can show the current date. A typed date stays fixed.','Add today’s date as an updating field in the centre of the footer.', ['Centred footer · updating date field','Centred footer · typed date','Right header · updating time field'],'date'],
+[3,'17','Send the wide poster to print','Set paper size and orientation separately. A3 is larger than A4. Landscape is wider than it is tall. To change only one part of a document, use a section break before and after it.','The brief asks for an A3 landscape poster. Keep the surrounding A4 pages in their own sections.', ['A3 landscape · isolate with section breaks','A4 landscape · insert a column break','A3 portrait · insert a page break'],'poster'],
+[0,'13.1','Save a spare headline','Copy stores the selection on the clipboard and keeps the source. Paste inserts it in the new place. Cut would remove the source.','Place the headline in the contents box as well as above the story.', ['Copy and paste','Cut and paste','Highlight and delete'],'duplicate'],
+[4,'17','Remove a launch step','Use the list controls to create or edit bullets and numbering. Remove a numbered item and the remaining steps renumber automatically.','Remove the microphone check and keep the steps consecutively numbered.', ['Delete the item from the numbered list','Delete every step number','Switch the steps to bullets'],'list-edit']
+
+];
+lessons.sort((a,b)=>a[0]-b[0]);
+const screens={
+ entry:(n,value)=>'<h3>Tickets on sale</h3><p class="page-rule">Admission <strong id="price"></strong></p>',
+ move:n=>'<h3>School news</h3>'+(n===0?'<p>Sports</p><p>Compliment machine wins!</p>':n===1?'<p>Compliment machine wins!</p><p>Sports</p><p>Compliment machine wins!</p>':n===2?'<p>Sports</p>':'<p>Compliment machine wins!</p><p>Sports</p>'),
+ asset:n=>'<h3>Snack orders</h3>'+(n===0?'<table><tr><th>Snack</th><th>Orders</th></tr><tr><td>Popcorn</td><td>14</td></tr><tr><td>Cookies</td><td>22</td></tr></table>':n===1?'<table><tr><th>Supplier</th><th>Snack</th><th>Orders</th><th>Notes</th></tr><tr><td>Canteen</td><td>Cookies</td><td>22</td><td>Extra data</td></tr></table>':n===2?'<span class="object shape">DECORATION</span>':'<p>No source inserted.</p>'),
+ wrap:n=>'<h3>Meet the mascot</h3><span class="art object '+(['wrap-tight','wrap-square','wrap-above-below'][n]||'')+'">★</span><p class="copy">'+copy+'</p>',
+ 'table-size':n=>'<h3>Snack scoreboard</h3>'+grid(n===1?2:3,n===1?3:2,n===2?2:null),
+ merge:n=>'<h3>Snack scoreboard</h3><table><tr>'+(n===0?'<th colspan="2">Match day snacks</th>':n===1?'<th>Match day snacks</th>':'<th>Match day snacks</th><th></th>')+'</tr><tr><td>Popcorn</td>'+(n===1?'':'<td>0.75</td>')+'</tr>'+(n===2?'<tr><td>&nbsp;</td><td></td></tr>':'')+'</table>',
+ 'table-format':n=>'<h3>Snack scoreboard</h3><table style="table-layout:fixed"><tr><th style="background:#f2c45f;width:57%">Snack</th><th style="background:#f2c45f">Price</th></tr><tr style="height:100px"><td style="'+(n===1?'white-space:nowrap;overflow:hidden;text-overflow:clip':'')+'">Double chocolate meteorite cookies</td><td style="text-align:'+(['right','left','center'][n]||'left')+';vertical-align:'+(['middle','top','bottom'][n]||'top')+'">1.50</td></tr></table>',
+ fields:n=>'<p style="text-align:'+(n===2?'center':'left')+'">'+(n===0||n===2?'MIDNIGHT EDITION':'')+'</p><h3>Robots after dark</h3><p class="copy">'+copy+'</p><p class="page-foot" style="text-align:'+(n===2?'center':'right')+'">'+(n===0?'Page 2 of 3 · automatic field':n>=0?'Page 2 of 3 · typed':'No page number')+'</p>',
+ page:n=>'<h3>Match-day programme</h3><p class="copy">'+copy+'</p><p class="page-rule">'+(['A4 portrait · binding space on the left','A4 landscape','A4 portrait · wider side margins'][n]||'A4 portrait')+'</p>',
+ break:n=>'<h3>After-school news</h3>'+(n===0?'<div style="display:grid;grid-template-columns:1fr 1fr;gap:15px"><p>Chess results</p><p>Robotics latest</p></div>':'<p>Chess results</p><p class="page-rule">'+(['','New page','New section'][n]||'Same column')+'</p><p>Robotics latest</p>'),
+ columns:n=>'<h3>Weekend news</h3><div class="copy '+(n===1?'':'two')+'" style="column-gap:'+(n===2?'0':n===0?'34px':'12px')+'">'+copy+'</div>',
+ spacing:n=>'<h3>Weekend news</h3><div class="copy" style="line-height:'+([1.5,2,1][n]||1)+'"><p style="margin:'+(n===0?'0 0 18px':n===2?'18px 0 0':'0')+'">'+copy+'</p><p>Read our results on page two.</p></div>',
+ tabs:n=>'<h3>Prices</h3><div style="font:1rem monospace;white-space:pre">'+([' 2.50<br>12.000<br> 0.7',' 2.50<br>12.000<br> 0.7 ','2.50<br>12.000<br>0.7','  2.50<br>12.000<br>   0.7'][n]||'2.50<br>12.000<br>0.7')+'</div>'+(n===3?'<p class="page-rule">Right tabs align the ends. Different numbers of decimal places cause the decimal points to drift.</p>':'<p class="page-rule">Compare with varying precision: '+(n===0?'2.50 · 12.000 · 0.7 still align at the decimal.':'2.50 · 12.000 · 0.7 may no longer align at the decimal.')+'</p>'),
+ indent:n=>'<h3>References</h3><p style="padding-left:'+(n===0||n===2?'24px':'0')+';text-indent:'+(n===0?'-24px':n===1?'24px':'0')+'">M. Byte, The Excellent Handbook of How to Stop a Robot Giving Awkward Compliments, School Press.</p>',
+ type:n=>'<h3>'+(['SCIENCE CLUB','science club','Science club'][n]||'Science club')+'</h3><p>Formula: '+(['H<sub>2</sub>O','H<sup>2</sup>O','<u>H2O</u>'][n]||'H2O')+'</p><p><b>Bold</b> · <em>Italic</em> · <u>Underline</u></p>',
+ list:n=>'<h3>Launch sequence</h3>'+(n===0?'<ol><li>Connect power</li><li>Run checks</li><li>Launch</li></ol>':n===1?'<ul><li>Connect power</li><li>Run checks</li><li>Launch</li></ul>':'<p>Connect power. Run checks. Launch.</p>'),
+ replace:n=>'<h3>Robot register</h3><p>'+(['<mark>Byte</mark> · bot · Robot','<mark>Byte</mark> · <mark>Byte</mark> · Robot','<mark>Byte</mark> · <mark>Byte</mark> · Ro<mark>Byte</mark>'][n]||'Bot · bot · Robot')+'</p>',
+ links:n=>'<h3>Match report</h3><p>'+(n===0?'<a class="jump" href="#proof-results">Jump to results</a>':n===2?'<span class="jump">Jump to results (external)</span>':'Jump to results')+'</p><p class="page-rule" id="proof-results" tabindex="-1">Results: 7–3 to the robots'+(n===0||n===1?' · bookmarked':'')+'</p>',
+ unlink:n=>'<h3>Archive</h3><p>'+(n===1?'':n===0?'Old results':'<span class="jump">Old results</span>')+'</p>'+(n===2?'<p class="page-rule">The link remains; its target is missing.</p>':''),
+ proof:n=>'<h3>Nature club</h3><p class="proof"><em>Macropus '+(n===0?'rufogriseus':n===1?'reforgives':'<mark>rufogriseus</mark>')+'</em></p>',
+ logo:n=>'<h3>School festival</h3><span class="object" style="'+(['width:86px;background:#302332;color:#fff2d9','width:138px;background:#322333;color:#493549','width:76px;overflow:hidden'][n]||'')+'">FESTIVAL</span>',
+ widow:n=>'<h3>Robotics news</h3>'+(n===0?'<p class="page-rule">Next page</p><p class="copy">'+copy+'</p>':'<p class="copy">The robotics team built a vending machine that dispenses compliments.</p><p class="page-rule">Next page</p><p>It accidentally called the headteacher “a promising beginner”.</p>'),
+ 'grid-style':n=>'<h3>Snack scoreboard</h3><table class="'+(n===0?'no-grid':'')+'"><tr><th style="width:'+(n===0?70:n===2?32:50)+'%;background:'+(n===0?'#f2c45f':'transparent')+'">Snack</th><th style="background:'+(n===0?'#f2c45f':'transparent')+'">Price</th></tr><tr><td>Meteorite cookies</td><td'+(n===2?' style="background:#f2c45f"':'')+'>1.50</td></tr></table>',
+ date:n=>'<p style="text-align:right">'+(n===2?'10:30 · time field':'')+'</p><h3>Late edition</h3><p class="copy">'+copy+'</p><p class="page-foot" style="text-align:center">'+(n===0?new Intl.DateTimeFormat('en-GB',{dateStyle:'long'}).format(new Date())+' · updating field':n===1?'12 November · typed':'')+'</p>',
+ poster:n=>'<h3>Robots after dark</h3><p>School hall · Friday · 5 pm</p><p class="page-rule">'+(['A3 landscape · separate section','A4 landscape · column break','A3 portrait · page break'][n]||'A4 portrait')+'</p>',
+ duplicate:n=>'<h3>Contents</h3><p>'+(n===0||n===1?'Robot wins talent show':'No entry')+'</p><hr><h3>'+(n===0||n===-1?'Robot wins talent show':'No headline')+'</h3>',
+ 'list-edit':n=>'<h3>Launch sequence</h3>'+(n===2?'<ul><li>Connect power</li><li>Launch</li></ul>':n===1?'<p>Connect power<br>Launch</p>':n===0?'<ol><li>Connect power</li><li>Launch</li></ol>':'<ol><li>Connect power</li><li>Check microphone</li><li>Launch</li></ol>')
+
+};
+function grid(rows,cols,limit){return '<table>'+Array.from({length:limit??rows},(_,r)=>'<tr>'+Array.from({length:cols},(_,c)=>r===0?'<th>Heading '+(c+1)+'</th>':'<td>&nbsp;</td>').join('')+'</tr>').join('')+'</table>'}
+const by=id=>document.getElementById(id), rail=by('rail'), brief=by('brief'), paper=by('paper'), status=by('status');
+let index=0, selected=null, solved=false, stamps=new Set(), bestStreak=0, streak=0, hadMiss=false;
+try{const save=JSON.parse(localStorage.getItem('document-rescue-midnight')||'{}');stamps=new Set((save.stamps||[]).filter(n=>Number.isInteger(n)&&n>=0&&n<lessons.length));bestStreak=Number(save.best)||0}catch{}
+function save(){try{localStorage.setItem('document-rescue-midnight',JSON.stringify({stamps:[...stamps],best:bestStreak}))}catch{}}
+function el(tag,value,cls){const x=document.createElement(tag);x.textContent=value;if(cls)x.className=cls;return x}
+function btn(label,cb,cls){const x=el('button',label,cls);x.type='button';x.onclick=cb;return x}
+function shuffle(a){return a.map((value,i)=>({value,i,order:Math.random()})).sort((x,y)=>x.order-y.order)}
+function statusLine(){status.textContent=stamps.size+'/'+lessons.length+' STAMPS  ·  '+streak+' STREAK'+(bestStreak?'  ·  BEST '+bestStreak:'');rail.querySelectorAll('button').forEach(b=>b.setAttribute('aria-current','false'));rail.querySelectorAll('.desk').forEach((b,i)=>{const ids=lessons.map((q,k)=>q[0]===i?k:-1).filter(k=>k>=0);const done=ids.filter(k=>stamps.has(k)).length;b.textContent=desks[i]+' '+done+'/'+ids.length+(done===ids.length?' ✓':'');b.setAttribute('aria-current',String(lessons[index][0]===i))})}
+function proof(){const q=lessons[index],n=typeof selected==='number'?selected:-1,key=q[6];paper.className='paper'+(key==='page'?([' gutter',' landscape',' wide-margin'][n]||''):key==='poster'&&(n===0||n===1)?' landscape':'');paper.innerHTML='<div class="edition">Midnight edition · Print proof</div>'+screens[key](n,selected);if(key==='entry')by('price').textContent=selected||'KWD 15.00';by('caption').textContent=selected===null||selected===''?'LIVE PRINT PROOF · BEFORE EDIT':solved?'LIVE PRINT PROOF · CHECKED':'LIVE PRINT PROOF · EDIT PREVIEW'}
+function load(i,focus=true){
+ stopRun();index=i;selected=null;solved=false;hadMiss=false;statusLine();proof();brief.replaceChildren();
+ const q=lessons[i], tag=el('div','SECTION '+q[1]+'  /  '+desks[q[0]],'kicker');if(q[1]==='Booklet extra')tag.textContent='BOOKLET EXTRA / FINAL PROOF';
+ const h=el('h2',q[2]);h.tabIndex=-1;
+ const details=el('details','','learn');details.open=true;details.append(el('summary','Learn the tool'),el('p',q[3]));
+ brief.append(tag,h,details,el('p',q[4],'instruction'));
+ const options=el('div','','choices'), feedback=el('p','','feedback'), toolbar=el('div','','toolbar');feedback.setAttribute('role','status');
+ const answers=q[5];
+ // Data rows store the instruction, the accepted choices and the preview key.
+ if(Array.isArray(answers)){for(const {value,i:option} of shuffle(answers)){const b=btn(value,()=>{if(solved)return;selected=option;[...options.children].forEach(x=>x.setAttribute('aria-pressed',String(x===b)));feedback.textContent='';check.disabled=false;proof()});b.setAttribute('aria-pressed','false');b.dataset.option=String(option);options.append(b)}}else{
+ const input=el('input','','entry');input.setAttribute('aria-label','Corrected price');input.placeholder='Type the corrected price';input.oninput=()=>{selected=input.value;check.disabled=!selected.trim();proof()};input.onkeydown=e=>{if(e.key==='Enter'&&!check.disabled)check.click()};options.append(input)
+ }
+ const check=btn('Check edit',()=>{
+ if(solved)return;const ok=Array.isArray(answers)?selected===0:String(selected).trim()===answers;
+ if(!ok){hadMiss=true;streak=0;statusLine();feedback.className='feedback error';feedback.textContent='Try that again. Compare the preview with the brief and use the tool note above.';return}
+ solved=true;const first=!stamps.has(i);stamps.add(i);if(first&&!hadMiss)streak++;bestStreak=Math.max(bestStreak,streak);save();statusLine();proof();
+ for(const c of options.children){c.disabled=true;if(c.dataset.option==='0')c.classList.add('correct')}
+ if(first)burst();feedback.className='feedback';feedback.textContent=first?'Stamped! Your edit meets the brief.':'Correct. You already earned this stamp.';
+ check.hidden=true;next.hidden=false;next.focus()
+ },'primary');check.disabled=true;
+ const next=btn('Next challenge',()=>{if(stamps.size===lessons.length)finish();else{const order=Array.from({length:lessons.length},(_,k)=>(i+1+k)%lessons.length);load(order.find(k=>!stamps.has(k)))}},'primary');next.hidden=true;
+ toolbar.append(check,next);brief.append(options,toolbar,feedback);if(focus)h.focus();
+}
+function finish(){brief.replaceChildren();const h=el('h2','The issue is on the press!');h.tabIndex=-1;brief.append(el('div','EDITION COMPLETE','kicker'),h,el('p','You earned every stamp. Replay any desk or reset the issue for a fresh run.','finish'),btn('Reset stamps',()=>{stamps.clear();streak=0;save();load(0)},'secondary'));paper.className='paper';paper.innerHTML='<div class="edition">Midnight edition · Ready to print</div><h3>Breaking news</h3><p>Student editor saves the school zine.</p><p class="page-rule">Every desk approved the proof.</p>';by('caption').textContent='FINAL PRINT PROOF';h.focus()}
+desks.forEach((d,i)=>rail.append(btn(d,()=>{const first=lessons.findIndex((q,k)=>q[0]===i&&!stamps.has(k));load(first>=0?first:lessons.findIndex(q=>q[0]===i))},'desk')));
+const exam=[
+['The owl ate the timetable','Identify the formatting used on OWL WATCH and on the th in 14th.','<h3><strong>OWL WATCH</strong></h3><p>Visit on the 14<sup>th</sup> of May to see <em>barred owls</em> take over the gym.</p>',[
+'Bold was applied to OWL WATCH.','Superscript was applied to th.'
+],2],
+['A mascot in the margins','The mascot below is circular. Explain which wrapping mode should be used and why it makes better use of space than Square wrapping.','<h3>Meet Bleep</h3><span class="art object shape">★</span><p>'+copy+'</p>',[
+'Names Tight wrapping.','Explains that Tight can follow the outline of the object.','Explains that Square follows the rectangular boundary and leaves more unused space around the curved edges.'
+],3],
+['Two columns, one escape plan','The editor wants the Results heading at the top of the second column on the same page. Explain which break to insert, where to insert it and what happens to the following text.','<h3>Sports report</h3><div class="two"><p>Several matches were interrupted when a robot tried to referee.</p><p><strong>Results</strong><br>Robots 7, Staff 3.</p></div>',[
+'Selects a column break.','Places it immediately before the Results heading.','Explains that the heading and following text move to the top of the next column on the same page.'
+],3],
+['The price of moon popcorn','Describe three table edits needed to turn this draft into a scoreboard with one title across both columns, a visible full snack name and right-aligned prices.','<table style="table-layout:fixed"><tr><th>SNACK PRICES</th><th></th></tr><tr><td style="white-space:nowrap;overflow:hidden">Meteorite caramel popcorn</td><td>1.75</td></tr><tr><td>Moon bun</td><td>0.50</td></tr></table>',[
+'Selects and merges the two title cells only.','Enables wrapping in the snack cell or widens the snack column sufficiently.','Sets horizontal right alignment in the price cells.'
+],3],
+['The missing page numbers','Describe how to put the issue name at the left of every header and “Page X of Y” at the right of every footer. Explain why the numbers should be fields.','<p class="edition">Header empty</p><h3>The Night Shift</h3><p>A penguin has been found in the IT cupboard. It refuses to comment.</p><p class="page-foot">Footer empty</p>',[
+'Adds the issue name to the header and left-aligns it.','Places the page display in the footer and aligns it to the right.','Uses a current page field for X and a total-pages field for Y.','Explains that the fields update when pages are added, removed or renumbered.'
+],4],
+['Rename one robot, spare the others','Describe how to replace “Bot” with “Byte” everywhere it is an exact standalone name, while leaving “bot” and “Robot” unchanged.','<h3>Robot register</h3><p>Bot · bot · Robot · Bot</p>',[
+'Enters Bot as the find text and Byte as the replacement.','Enables Match case to exclude lowercase bot.','Enables Whole words to exclude the Bot substring within a longer word, and applies replacement to the matching occurrences.'
+],3],
+['The fold strikes back','Only the middle page should be landscape. Describe how to isolate it, and explain why the printed booklet benefits from a gutter margin.','<h3>Three-page guide</h3><p>Page 1 · portrait</p><p>Page 2 · wide robot arena plan</p><p>Page 3 · portrait</p>',[
+'Inserts section breaks before and after the middle page.','Sets landscape orientation for the middle section only.','Explains that a gutter adds room on the binding edge so content stays clear of the fold or staples.'
+],3],
+['Find the secret results','Describe how to make the words “See results” jump to the Results heading in the same document.','<h3>Talent show</h3><p>See results</p><p class="page-rule"><strong>Results</strong><br>First place: the compliment machine.</p>',[
+'Creates a named bookmark at the Results heading.','Selects See results and adds a hyperlink to that bookmark.'
+],2]
+];
+const examTotal=exam.reduce((sum,q)=>sum+q[4],0);
+let examIndex=0,examPhase='answer',examScore=0,examDraft='',examChecks=[],examFinished=false;
+const examTab=btn('Press challenge',showExam,'exam-tab');
+rail.append(examTab);
+function showExam(){
+ stopRun();
+ rail.querySelectorAll('button').forEach(b=>b.setAttribute('aria-current',String(b===examTab)));
+ examTab.textContent='Press challenge '+examIndex+'/'+exam.length;
+ brief.replaceChildren();
+ const title=el('h2',examFinished?'The presses are rolling!':exam[examIndex][0]);title.tabIndex=-1;
+ brief.append(el('div',examFinished?'PRESS RUN COMPLETE':'PRESS CHALLENGE / IGCSE-STYLE THEORY','kicker'),title);
+ paper.className='paper';by('caption').textContent='PRESS CHALLENGE · EXAM EXTRACT';
+ if(examFinished){
+  brief.append(el('p',examScore+' / '+examTotal+' marks (self-marked)','exam-score'),el('p',examScore===examTotal?'Full marks. The editor has promoted you to editor-in-chief.':'The presses are rolling. Replay the round to improve your mark, or revisit a desk to practise a skill.','instruction'),
+   btn('Replay press challenge',()=>{examIndex=examScore=0;examDraft='';examChecks=[];examPhase='answer';examFinished=false;showExam()},'primary'));
+  paper.innerHTML='<div class="edition">Midnight edition · Breaking news</div><h3>Robots, owls and popcorn survive deadline</h3><p class="page-rule">Press score: '+examScore+' / '+examTotal+'</p>';
+  title.focus();return;
+ }
+ const q=exam[examIndex];
+ brief.append(el('p',(examIndex+1)+' of '+exam.length+' · '+q[4]+' marks available · '+examScore+' marks banked','exam-score'),el('p',q[1],'instruction'));
+ paper.innerHTML='<div class="edition">Midnight edition · '+q[4]+' marks</div>'+q[2];
+ const box=el('textarea','','entry exam-answer');box.placeholder='Write one clear point per line.';box.setAttribute('aria-label','Your exam answer');box.value=examDraft;box.readOnly=examPhase==='mark';brief.append(box);
+ if(examPhase==='answer'){
+  const reveal=btn('Lock answer & reveal marks',()=>{examPhase='mark';showExam()},'primary');reveal.disabled=!examDraft.trim();
+  box.oninput=()=>{examDraft=box.value;reveal.disabled=!examDraft.trim()};
+  brief.append(el('p','Write your response before opening the marking points.','saved'),reveal);
+ }else{
+  brief.append(el('p','Award one mark for each distinct point you included. Equivalent wording counts.','saved'));
+  const list=el('fieldset','','mark-points');list.append(el('legend','Mark your answer'));
+  q[3].forEach((point,i)=>{const label=el('label','');const cb=el('input','');cb.type='checkbox';cb.checked=Boolean(examChecks[i]);cb.onchange=()=>{examChecks[i]=cb.checked};label.append(cb,el('span',point));list.append(label)});
+  brief.append(list,btn(examIndex+1===exam.length?'Send issue to press':'Bank marks & load next story',()=>{
+   examScore+=examChecks.filter(Boolean).length;examIndex++;examPhase='answer';examDraft='';examChecks=[];examFinished=examIndex===exam.length;showExam()
+  },'primary'));
+ }
+ title.focus();
+}
+
+const rounds=[
+ ['A flyer needs text to hug a circular mascot.', ['Tight','Square','Above and below'], 'Tight follows the shape of the object.'],
+ ['The contents box needs a second copy of the headline.', ['Copy and paste','Cut and paste','Delete'], 'Copy preserves the original.'],
+ ['A scoreboard title must span two existing columns.', ['Merge cells','Insert row','Delete column'], 'Merging joins neighbouring cells.'],
+ ['Let a long snack name flow onto several lines in its cell.', ['Wrap text','Hide gridlines','Middle align'], 'Wrapping fits text within the available width.'],
+ ['Keep page totals correct when the booklet grows.', ['Total pages field','Typed total','Time field'], 'An automatic total-pages field updates as pagination changes.'],
+ ['Leave extra space where the pages will be stapled.', ['Gutter','Column gap','Tab stop'], 'The gutter reserves binding space.'],
+ ['Start the next story at the top of the right-hand column.', ['Column break','Page break','Section break'], 'A column break moves text to the next column.'],
+ ['Turn just the poster page to landscape.', ['Section breaks','Column breaks','Page breaks'], 'A separate section can have its own orientation.'],
+ ['Make 2.50 and 12.000 align on their decimal points.', ['Decimal tab','Right tab','Centre tab'], 'Decimal tabs align decimal separators.'],
+ ['Leave the first line at the margin and indent the rest.', ['Hanging indent','First-line indent','Whole paragraph indent'], 'A hanging indent shifts continuation lines inward.'],
+ ['Lower the 2 in H2O below the baseline.', ['Subscript','Superscript','Underline'], 'Subscript lowers the character below the baseline.'],
+ ['Replace Bot without touching bot or Botnet.', ['Match case + whole words','Match case only','Whole words only'], 'Match case preserves capitalisation and whole words excludes partial matches.'],
+ ['Make a link jump to the Results heading in the same file.', ['Bookmark target','Page count field','Page break'], 'A bookmark gives a hyperlink a named destination.'],
+ ['Keep launch instructions in a clearly defined order.', ['Numbered list','Bulleted list','Decimal tabs'], 'List numbers show the order of the steps.']
+];
+const workshop=[
+ {title:'The snack scoreboard',section:'13.2 · Tables',brief:'Start a 3-row, 2-column table. Add a title row and merge its cells. Shade the title, and right-align the prices.',
+ tip:'Count the heading row in the starting dimensions. A merged title spans both columns without removing either price column.',
+ fields:[['Rows before title', ['2','3','4'],1],['Columns',['1','2','3'],1],['Title row',['None','Separate cells','Merged cells'],2],['Title shading',['Off','On'],1],['Price alignment',['Left','Centre','Right'],2]],
+ render:([rows,cols,title,shade,align])=>'<h3>Snack scoreboard</h3><table>'+(title?'<tr style="background:'+(shade?'#efba72':'transparent')+'">'+(title===2?'<th colspan="'+(cols+1)+'">Midnight snacks</th>':'<th>Midnight snacks</th>'+'<td></td>'.repeat(cols))+'</tr>':'')+Array.from({length:rows+2},(_,r)=>'<tr>'+Array.from({length:cols+1},(_,c)=>'<td style="text-align:'+(c===1?['left','center','right'][align]:'left')+'">'+(['Snack','Moon popcorn','Laser crisps','Rocket fudge'][r]&&[[ 'Snack','Price','Notes'],['Moon popcorn','0.75','Salty'],['Laser crisps','1.25','Spicy'],['Rocket fudge','2.00','Sweet']][r][c]||'')+'</td>').join('')+'</tr>').join('')+'</table>'},
+ {title:'The page that ate the staples',section:'17 · Page layout',brief:'Set A3 landscape. Add a 1 cm binding gutter. Use two columns with a 2 cm gap and start the second story in the next column.',
+ tip:'Paper size and orientation are separate settings. The gutter reserves space for binding. A column break moves copy to the next column.',
+ fields:[['Paper size',['A4','A3'],1],['Orientation',['Portrait','Landscape'],1],['Gutter',['0 cm','1 cm','2 cm'],1],['Columns',['1','2'],1],['Column gap',['1 cm','2 cm'],1],['Break before story 2',['None','Page','Section','Column'],3]],
+ render:([size,orient,gutter,cols,gap,br])=>'<div class="layout-proof '+(orient?'wide':'')+'" style="border-left-width:'+gutter*13+'px"><small>'+['A4','A3'][size]+' · '+['Portrait','Landscape'][orient]+'</small><div style="columns:'+(cols+1)+';column-gap:'+(gap?28:12)+'px"><h3>Moon launch</h3><p>Robots deliver snacks to the moon.</p><div style="'+(br===3?'break-before:column':br?'border-top:2px dashed #894366':'')+'"><h3>Owl alert</h3><p>The owl has commandeered the control room.</p></div></div>'+(br===1||br===2?'<p class="page-rule">'+(br===1?'Page break':'Section break')+'</p>':'')+'</div>'},
+ {title:'Boss fight · The corrupted edition',section:'13.1, 13.3 & 17 · Mixed practical',brief:'Make the mascot hug the text. Use 1.5 line spacing and 6 pt after paragraphs. Replace only “Bot” with “Byte”. Leave “bot” and “Botnet” as they are. Keep the issue title in the left header and put an automatic Page X of Y at the right of the footer.',
+ tip:'Tight follows the outline. Check capitals and partial matches before replacing. Automatic fields keep the page count current.',
+ fields:[['Mascot wrapping',['Above and below','Square','Tight'],2],['Line spacing',['Single','1.5 lines','Double'],1],['After paragraphs',['0 pt','6 pt','12 pt'],1],['Replace options',['Neither','Whole words','Match case','Both'],3],['Issue title',['No header','Left header','Centred header'],1],['Page numbering',['None','Typed on right','Automatic on right'],2]],
+ render:([wrap,line,after,replace,header,foot])=> (header?'<div class="edition" style="text-align:'+(header===1?'left':'center')+'">School zine</div>':'')+'<h3>Robots storm the studio</h3><div class="object shape '+['wrap-above-below','wrap-square','wrap-tight'][wrap]+'">🤖</div><p style="line-height:'+([1,1.5,2][line])+';margin-bottom:'+after*8+'px">'+['Byte, Byte and Bytenet','Byte, Byte and Botnet','Byte, bot and Bytenet','Byte, bot and Botnet'][replace]+' arrived at the studio. '+copy+'</p><p style="line-height:'+([1,1.5,2][line])+'">The press crew has five minutes to finish.</p>'+(foot?'<div class="page-foot" style="text-align:right;clear:both">Page 1 of 4 '+(foot===2?'· fields':'· typed')+'</div>':'')}
+];
+function activate(tab){
+ stopRun();
+ rail.querySelectorAll('button').forEach(b=>b.setAttribute('aria-current',String(b===tab)));
+ brief.replaceChildren();
+ paper.className='paper';
+}
+function gameTitle(title,subtitle){
+ const h=el('h2',title);h.tabIndex=-1;
+ brief.append(el('div',subtitle,'kicker'),h);
+ h.focus();
+}
+function record(key,score){
+ try{
+  const best=Math.max(score,Number(localStorage.getItem(key))||0);
+  localStorage.setItem(key,best);
+  return best;
+ }catch{return score}
+}
+function burst(){
+ if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+ const pop=el('div','','burst');
+ pop.setAttribute('aria-hidden','true');
+ for(let i=0;i<16;i++){
+  const bit=el('i','');
+  bit.style.setProperty('--x',Math.cos(i*2.4)*120+'px');
+  bit.style.setProperty('--y',Math.sin(i*2.4)*85+'px');
+  bit.style.background=['#fae744','#ff78a6','#85e5e0'][i%3];
+  pop.append(bit);
+ }
+ paper.parentElement.append(pop);
+ setTimeout(()=>pop.remove(),720);
+}
+let job=0, settings=null;
+function openWorkshop(){
+ activate(labTab);
+ const task=workshop[job];
+ settings??=task.fields.map(()=>0);
+ by('caption').textContent='PRACTICAL · LIVE PRINT PROOF';
+ gameTitle(task.title,task.section+' / '+(job+1)+' OF '+workshop.length);
+ brief.append(el('p',task.brief,'instruction'));
+ const controls=el('div','','controls'),msg=el('p','','feedback');
+ const hint=el('details','','learn');
+ hint.append(el('summary','Get a hint'),el('p',task.tip));
+ msg.setAttribute('role','status');
+ function preview(){paper.innerHTML='<div class="edition">Midnight edition · Live proof</div>'+task.render(settings)}
+ task.fields.forEach(([name,values],i)=>{
+  const label=el('label',name),select=el('select','');
+  values.forEach((value,n)=>{const option=el('option',value);option.value=n;select.append(option)});
+  select.value=settings[i];
+  select.onchange=()=>{settings[i]=Number(select.value);select.removeAttribute('data-result');msg.textContent='';preview()};
+  label.append(select);controls.append(label);
+ });
+ const next=btn(job===workshop.length-1?'Run the press':'Next job',()=>{
+  if(job===workshop.length-1){job=0;settings=null;openArcade();return}
+  job++;settings=null;openWorkshop();
+ },'secondary');
+ next.hidden=true;
+ const check=btn('Inspect proof',()=>{
+  let marks=0;
+  [...controls.querySelectorAll('select')].forEach((select,i)=>{
+   const ok=settings[i]===task.fields[i][2];
+   marks+=Number(ok);
+   select.dataset.result=ok?'ok':'retry';
+   select.setAttribute('aria-invalid',String(!ok));
+  });
+  const passed=marks===task.fields.length;
+  msg.textContent=marks+'/'+task.fields.length+' marks · '+(passed?'Proof cleared.':'Revisit the outlined settings and check the preview.');
+  if(passed){burst();controls.querySelectorAll('select').forEach(select=>select.disabled=true);check.hidden=true;next.hidden=false;next.focus()}
+ },'primary');
+ const toolbar=el('div','','toolbar');
+ toolbar.append(check,next);
+ brief.append(hint,controls,toolbar,msg);
+ preview();
+}
+function openCopySprint(){
+ activate(labTab);
+ by('caption').textContent='PRACTICAL · MOVE THE STORY';
+ gameTitle('Headline heist','13.1 · Drag and drop');
+ brief.append(el('p','The compliment machine is in the wrong story. Drag its headline from Tech to Sports, or select the headline and then select Sports.','instruction'));
+ const message=el('p','','feedback');message.setAttribute('role','status');brief.append(message);
+ paper.innerHTML='<div class="edition">Midnight edition · Contents</div><h3>Tech</h3><div id="tech-slot"></div><h3>Sports</h3>';
+ const headline=btn('Compliment machine enters the talent show',()=>headline.setAttribute('aria-pressed','true'),'move-tile');
+ headline.setAttribute('aria-pressed','false');
+ headline.draggable=true;
+ headline.ondragstart=event=>{event.dataTransfer.setData('text/plain','midnight-headline');event.dataTransfer.effectAllowed='move'};
+ const target=btn('Drop headline here',()=>{if(headline.getAttribute('aria-pressed')==='true')moveHeadline();else message.textContent='Select the headline first.'},'move-tile drop-target');
+ target.ondragover=event=>event.preventDefault();
+ target.ondrop=event=>{event.preventDefault();if(event.dataTransfer.getData('text/plain')==='midnight-headline')moveHeadline()};
+ by('tech-slot').append(headline);
+ paper.append(target);
+ function moveHeadline(){
+  by('tech-slot').textContent='No stories';
+  target.replaceWith(el('p',headline.textContent,'move-tile'));
+  message.textContent='Story moved. The original slot is now empty.';
+  burst();next.hidden=false;next.focus();
+ }
+ const next=btn('Open the repair bench',()=>{job=0;settings=null;openWorkshop()},'primary');
+ next.hidden=true;brief.append(next);
+}
+const arcadeTab=btn('⚡ Press Panic',openArcade,'arcade-tab');
+const labTab=btn('🛠 Repair missions',openCopySprint,'lab-tab');
+rail.prepend(arcadeTab,labTab);
+let run=null, frame=0;
+function stopRun(){cancelAnimationFrame(frame);run=null}
+function openArcade(){
+ activate(arcadeTab);
+ by('caption').textContent='PRESS PANIC · SORTING MACHINE';
+ gameTitle('Press Panic','Document Rescue / Arcade');
+ brief.append(el('p','The press is eating the issue. Route each job into the chute with the right publishing tool. Build a combo and survive 14 jobs.','instruction'));
+ brief.append(btn('Start arcade',()=>startRun(false),'primary'),btn('Untimed practice',()=>startRun(true),'secondary'));
+ const guide=el('p','Use 1, 2 or 3, or click a chute. Press Space or use the Pause button to stop the belt.','saved');
+ brief.append(guide);
+ paper.innerHTML='<div class="machine-title">MIDNIGHT<br>PRINT WORKS</div><div class="idle-belt" aria-hidden="true"><span>◆</span><span>▤</span><span>◆</span></div><div class="machine-footer">3 LIVES · 14 JOBS</div>';
+}
+function startRun(untimed){
+ activate(arcadeTab);
+ run={untimed,deck:shuffle(rounds).map(x=>x.value),index:0,lives:3,combo:0,score:0,paused:false,due:0,phase:'job'};
+ gameTitle('Press Panic','Arcade / '+(untimed?'Untimed practice':'Deadline mode'));
+ const hud=el('p','','exam-score'), question=el('p','','arcade-question'),chutes=el('div','','chutes'), msg=el('p','','feedback'),toolbar=el('div','','toolbar');
+ msg.setAttribute('role','status');
+ const pause=btn('Pause',togglePause,'secondary');
+ pause.hidden=untimed;
+ const next=btn('Send next job',nextJob,'primary');
+ next.hidden=true;
+ toolbar.append(pause,next,btn('Exit round',openArcade,'secondary'));
+ brief.append(hud,question,chutes,msg,toolbar);
+ paper.innerHTML='<div class="machine-footer" id="machine-status"></div><div class="belt"><div id="parcel" class="parcel">PRINT JOB</div></div><div id="deadline" class="deadline"><span></span></div>';
+ Object.assign(run,{hud,question,chutes,msg,pause,next,parcel:by('parcel'),deadline:by('deadline'),machineStatus:by('machine-status')});
+ run.deadline.hidden=untimed;
+ paintJob();
+}
+function paintJob(){
+ const [prompt,choices]=run.deck[run.index];
+ run.phase='job';
+ run.msg.textContent='';
+ run.next.hidden=true;
+ run.pause.disabled=false;
+ run.chutes.replaceChildren(...shuffle(choices).map(({value,i},lane)=>btn((lane+1)+'  '+value,()=>settle(i),'chute')));
+ run.hud.textContent='JOB '+(run.index+1)+'/14  ·  '+(run.untimed?'PRACTICE':run.lives+' LIVES')+'  ·  '+run.score+' PTS  ·  ×'+run.combo+' COMBO';
+ run.question.textContent=prompt;
+ run.machineStatus.textContent='CHOOSE A CHUTE';
+ run.parcel.textContent='JOB '+String(run.index+1).padStart(2,'0');
+ run.parcel.dataset.result='';
+ run.parcel.style.top='0%';
+ run.duration=Math.max(10000,18500-run.index*600);
+ run.due=performance.now()+run.duration;
+ run.chutes.firstElementChild.focus();
+ if(!run.untimed)frame=requestAnimationFrame(tick);
+}
+function tick(now){
+ if(!run||run.paused||run.phase!=='job')return;
+ const remaining=Math.max(0,(run.due-now)/run.duration);
+ run.deadline.firstElementChild.style.transform='scaleX('+remaining+')';
+ run.parcel.style.top=(1-remaining)*77+'%';
+ if(remaining===0)settle(-1);
+ else frame=requestAnimationFrame(tick);
+}
+function togglePause(){
+ if(!run||run.untimed||run.phase!=='job')return;
+ run.paused=!run.paused;
+ run.pause.textContent=run.paused?'Resume':'Pause';
+ run.chutes.querySelectorAll('button').forEach(b=>b.disabled=run.paused);
+ run.machineStatus.textContent=run.paused?'BELT PAUSED':'CHOOSE A CHUTE';
+ if(run.paused){run.pausedAt=performance.now();cancelAnimationFrame(frame)}
+ else{run.due+=performance.now()-run.pausedAt;frame=requestAnimationFrame(tick)}
+}
+function settle(choice){
+ if(!run||run.paused||run.phase!=='job')return;
+ cancelAnimationFrame(frame);
+ const correct=choice===0, [,choices,explain]=run.deck[run.index];
+ run.phase='feedback';
+ if(correct){run.combo++;run.score+=100+25*(run.combo-1);burst()}
+ else{if(!run.untimed)run.lives--;run.combo=0}
+ run.hud.textContent='JOB '+(run.index+1)+'/14  ·  '+(run.untimed?'PRACTICE':run.lives+' LIVES')+'  ·  '+run.score+' PTS  ·  ×'+run.combo+' COMBO';
+ run.machineStatus.textContent=correct?'JOB SAVED':choice===-1?'DEADLINE MISSED':'WRONG CHUTE';
+ run.parcel.dataset.result=correct?'ok':'retry';
+ run.msg.textContent=(correct?'Job saved. ':choice===-1?'Time ran out. ':'Wrong chute. ')+choices[0]+' · '+explain;
+ run.chutes.querySelectorAll('button').forEach(b=>b.disabled=true);
+ run.pause.disabled=true;
+ run.next.hidden=false;
+ run.next.textContent=run.lives===0||run.index===run.deck.length-1?'See results':'Send next job';
+ run.next.focus();
+}
+function nextJob(){
+ if(!run||run.phase!=='feedback')return;
+ if(++run.index<run.deck.length&&run.lives>0){paintJob();return}
+ const {score,lives,index,untimed}=run;
+ const best=record(untimed?'midnight-best-practice':'midnight-best-arcade',score);
+ activate(arcadeTab);
+ gameTitle(lives?'Edition saved!':'Press jam!','Arcade results');
+ brief.append(el('p',score+' points · Best '+best+' · '+index+'/14 jobs seen','exam-score'),
+  btn('Play again',()=>startRun(untimed),'primary'),btn('Go to repair missions',openCopySprint,'secondary'),btn('Try written exam questions',showExam,'secondary'));
+ paper.innerHTML='<div class="edition">Breaking news</div><h3>'+(lives?'Students rescue midnight issue':'Owl suspected in press sabotage')+'</h3><p class="page-rule">'+score+' points</p>';
+ by('caption').textContent='PRESS PANIC · FINAL SCORE';
+ if(lives)burst();
+}
+document.addEventListener('keydown',event=>{
+ if(!run||event.repeat||event.altKey||event.ctrlKey||event.metaKey)return;
+ if(['1','2','3'].includes(event.key)&&run.phase==='job'){
+  event.preventDefault();run.chutes.children[Number(event.key)-1]?.click();
+ }else if(event.code==='Space'&&run.phase==='job'&&!run.untimed&&(!event.target.closest('button')||event.target===run.pause||run.chutes.contains(event.target))){
+  event.preventDefault();togglePause();
+ }
+});
+
+statusLine();
+openArcade();
+</script></body></html>
