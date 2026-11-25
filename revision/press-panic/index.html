@@ -1,0 +1,145 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Document Rescue: Press Panic</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#1a1040;--pan:#2b1a73;--y:#ffd23f;--c:#ff5d73;--m:#3be8b0;--s:#4cc9f0;--ink:#241a3b;color-scheme:dark}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%}
+body{background:var(--bg) radial-gradient(#fff3 1px,transparent 1.5px) 0 0/38px 38px;animation:drift 20s linear infinite;color:#fff;font:700 1rem/1.45 Nunito,system-ui,sans-serif;padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+@keyframes drift{to{background-position:0 0,0 380px}}
+button{font:inherit;color:inherit;cursor:pointer}button:focus-visible,input:focus-visible{outline:3px dashed var(--y);outline-offset:3px}
+#fx{position:fixed;inset:0;pointer-events:none;z-index:9}
+.px{font-family:'Press Start 2P',monospace;line-height:1.5}
+.wrap{max-width:1100px;margin:auto;padding:16px}
+.hud{display:flex;gap:10px;justify-content:space-between;align-items:center;flex-wrap:wrap;background:#0006;border:3px solid var(--y);padding:8px 12px;margin-bottom:14px;font:.62rem 'Press Start 2P',monospace}
+.hud b{color:var(--y)}
+.btn{background:var(--y);color:var(--ink);border:0;box-shadow:0 5px 0 #b08a00;padding:14px 20px;font:.7rem 'Press Start 2P',monospace;border-radius:6px;min-height:48px;transition:transform .08s}
+.btn:hover{transform:translateY(-2px) rotate(-1deg)}.btn:active{transform:translateY(4px);box-shadow:0 1px 0 #b08a00}
+.btn.alt{background:var(--s);box-shadow:0 5px 0 #1d7c9a}
+.title{text-align:center;padding:6vh 0}
+.title h1{font:clamp(1.5rem,6vw,3.4rem)/1.3 'Press Start 2P',monospace;color:var(--y);text-shadow:4px 4px 0 var(--c);margin:12px 0}
+.title h1 span{display:inline-block;animation:bob 1.4s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-10px) rotate(3deg)}}
+.big{font-size:5rem;animation:bob 1.2s ease-in-out infinite;display:block}
+.map{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+.node{background:var(--pan);border:4px solid var(--s);border-radius:12px;padding:16px;text-align:left;box-shadow:0 6px 0 #0006;transition:.15s;position:relative}
+.node:hover:not(:disabled){transform:translateY(-6px) rotate(-1.5deg);border-color:var(--y)}
+.node:disabled{opacity:.45;filter:grayscale(1);cursor:not-allowed}
+.node .ic{font-size:2.6rem;display:block}.node small{color:var(--m)}.node.boss{border-color:var(--c);grid-column:1/-1;text-align:center;animation:pulse 1.6s infinite}
+@keyframes pulse{50%{box-shadow:0 0 28px var(--c)}}
+.wb{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:780px){.wb{grid-template-columns:1fr}}
+.br,.stage{background:var(--pan);border:4px solid var(--s);border-radius:12px;padding:18px;min-width:0}
+.tg{color:var(--m);font:.6rem 'Press Start 2P',monospace}
+h2{font-size:1.35rem;margin:10px 0 14px}
+.opt{display:block;width:100%;text-align:left;background:#3d2a9a;border:3px solid #6a55d6;border-radius:10px;padding:12px 14px;margin-bottom:9px;transition:.12s}
+.opt:hover:not(:disabled){transform:translateX(6px);border-color:var(--y)}
+.opt.ok{background:#0b7a5a;border-color:var(--m)}.opt.no{background:#8a1f3a;border-color:var(--c);animation:shake .4s}
+@keyframes shake{25%{translate:-9px}75%{translate:9px}}
+.shake{animation:shake .4s}
+.fb{min-height:48px;margin:8px 0;color:var(--m)}.fb.bad{color:#ff9bab}
+.bar{height:12px;background:#0006;border-radius:8px;overflow:hidden;margin-bottom:12px}.bar i{display:block;height:100%;background:var(--m);width:100%;transition:width .1s linear}
+.stage{display:flex;flex-direction:column;justify-content:space-between;gap:12px;background:repeating-linear-gradient(-45deg,#2b1a73 0 12px,#301e7d 12px 24px)}
+.pp{background:#fffaf0;color:var(--ink);padding:14px;min-height:240px;box-shadow:8px 8px 0 #0008;border-radius:3px;font:700 .85rem/1.5 Georgia,serif;animation:pop .35s}
+@keyframes pop{from{transform:scale(.9) rotate(-2deg);opacity:.3}}
+.pg{overflow:hidden}.ob{display:grid;place-items:center;background:#7a3fff;border-radius:50%;font-size:2rem;width:80px;height:80px}
+.t{border-collapse:collapse;width:100%}.t td,.t th{border:2px solid var(--ink);padding:6px}.t th{background:#ffd23f}
+.hf{display:flex;justify-content:space-between;font:800 .75rem monospace;background:#ffe9a8;padding:3px 6px;margin:4px 0}
+.nr{display:flex;margin-left:40%}
+.mas{display:flex;align-items:center;gap:10px}.mas span{font-size:2.6rem;animation:bob 1.6s infinite}
+.mas q{quotes:none;background:#fff;color:var(--ink);padding:8px 12px;border-radius:14px;position:relative;font-size:.9rem}
+.bk{display:inline-block;vertical-align:top;width:calc(50% - 6px);margin:0 0 8px;border:3px dashed var(--y);border-radius:10px;padding:6px;min-height:80px;cursor:pointer}
+.bk b{color:var(--y);display:block;font-size:.85rem}.bk:hover{background:#ffd23f22}
+.chip{background:var(--s);color:var(--ink);border:0;border-radius:20px;padding:8px 12px;margin:4px;font-weight:900;box-shadow:0 3px 0 #1d7c9a}
+.chip.sel{background:var(--y);transform:scale(1.07)}.chip.done{background:var(--m);box-shadow:none;animation:pop .3s}
+input[type=range]{width:100%;accent-color:var(--y)}.sl{margin:10px 0}
+.stars{font-size:3rem;letter-spacing:8px}.stars i{display:inline-block;animation:bob 1s infinite;font-style:normal}
+.float{position:fixed;color:var(--y);font:1rem 'Press Start 2P',monospace;pointer-events:none;animation:up 1s forwards;z-index:10}
+@keyframes up{to{transform:translateY(-70px);opacity:0}}
+.center{text-align:center;padding:5vh 0}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style></head><body><canvas id="fx"></canvas><div class="wrap" id="app"></div>
+<script>
+const $=s=>document.querySelector(s),T0='The robotics team built a vending machine that dispenses compliments. It called the headteacher a promising beginner. ';
+let S={xp:0,st:{}},mute=0,ac;try{S=JSON.parse(localStorage.getItem('dr2'))||S}catch(e){}
+const save=()=>{try{localStorage.setItem('dr2',JSON.stringify(S))}catch(e){}};
+const snd=(f,d=.12,t='square')=>{if(mute)return;try{ac=ac||new AudioContext();const o=ac.createOscillator(),g=ac.createGain();o.type=t;o.frequency.value=f;g.gain.value=.05;g.gain.exponentialRampToValueAtTime(.001,ac.currentTime+d);o.connect(g);g.connect(ac.destination);o.start();o.stop(ac.currentTime+d)}catch(e){}};
+const good=()=>{snd(660);setTimeout(()=>snd(990),90)},bad=()=>snd(140,.35,'sawtooth'),win=()=>[523,659,784,1047].forEach((f,i)=>setTimeout(()=>snd(f,.2),i*110));
+const cv=$('#fx'),cx=cv.getContext('2d');let ps=[];const rs=()=>{cv.width=innerWidth;cv.height=innerHeight};rs();onresize=rs;
+function burst(n=40,x=innerWidth/2,y=innerHeight/3){if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;const e=!ps.length;for(let i=0;i<n;i++)ps.push({x,y,vx:(Math.random()-.5)*13,vy:Math.random()*-12-2,c:`hsl(${Math.random()*360} 90% 60%)`,l:70+Math.random()*30});if(e)tick()}
+function tick(){cx.clearRect(0,0,cv.width,cv.height);ps=ps.filter(p=>p.l-->0);ps.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.4;cx.fillStyle=p.c;cx.fillRect(p.x,p.y,7,7)});if(ps.length)requestAnimationFrame(tick)}
+const shuf=a=>a.map(x=>[Math.random(),x]).sort((a,b)=>a[0]-b[0]).map(x=>x[1]);
+const pop=(t,e)=>{const d=document.createElement('div');d.className='float';d.textContent=t;const r=(e&&e.target.getBoundingClientRect())||{left:innerWidth/2,top:innerHeight/2};d.style.left=r.left+'px';d.style.top=r.top+'px';document.body.append(d);setTimeout(()=>d.remove(),1000)};
+/* preview builders */
+const pg=x=>`<div class=pg>${x}</div>`,W=s=>pg(`<b class=ob style="${s}">🤖</b>${T0+T0}`),sq='float:left;margin:0 10px 4px 0;';
+const TB=(r,c,mg)=>{const H=['Snack','Price','Stock'],R=[['Crisps','0.50','12'],['Popcorn','1.00','8'],['Cookie','0.75','5']];let s='<table class=t>';if(mg)s+=`<tr><th colspan=${c}>Snack scoreboard</th></tr>`;s+='<tr>'+H.slice(0,c).map(x=>`<th>${x}</th>`).join('')+'</tr>';for(let i=0;i<r-1;i++)s+='<tr>'+R[i].slice(0,c).map(x=>`<td>${x}</td>`).join('')+'</tr>';return pg(s+'</table>')};
+const FM=(w,a,v)=>pg(`<table class=t><tr><th>Snack</th><th>Price</th></tr><tr><td><div style="width:80px;${w?'':'white-space:nowrap;overflow:hidden'}">Extra-large caramel popcorn</div></td><td style="width:90px;height:80px;text-align:${a};vertical-align:${v}">1.50</td></tr></table>`);
+const HF=(a,b)=>pg(`<div class=hf>${a}</div><p>The Midnight Edition goes to press...</p><div class=hf>${b}</div>`);
+const NM=m=>pg(['2.50','12.000','0.7'].map(x=>{const[a,b]=x.split('.');return m=='d'?`<div class=nr><span style="width:3ch;text-align:right">${a}</span>.${b}</div>`:`<div style="text-align:${m}">${x}</div>`}).join(''));
+const PAGE=s=>pg(`<div style="border:2px solid #999;padding:12px;${s}">Stapled booklet page. ${T0}</div>`);
+const COL=(n,g)=>pg(`<div style="columns:${n};column-gap:${g}px;column-rule:1px solid #b9a">${T0+T0+T0}</div>`);
+/* levels */
+const L=[
+{n:'Copy desk',ic:'✂️',sec:'13.1',r:[
+{m:'q',ask:'The compliment-machine headline is in the wrong place. Move it below Sports with no duplicate left behind.',o:[['Cut and paste',pg('✅ Headline now sits below Sports, once.')],['Copy and paste',pg('😬 Headline appears twice!')],['Delete only',pg('💀 Headline vanished.')]],a:0,why:'Cut removes the text and stores it. Paste then inserts it somewhere new.'},
+{m:'sort',ask:'Match each action to what it does.',b:['Cut','Copy','Paste','Delete'],it:[['Removes text and stores it on the clipboard',0],['Keeps the original and stores a duplicate',1],['Inserts the clipboard contents',2],['Removes text and stores nothing',3]]},
+{m:'q',ask:'The editor wants cells B2:C4 from a spreadsheet inside your article. What do you do?',o:[['Paste only the selected cells',TB(3,2)],['Paste the whole sheet',pg('📊 Way too much data!')],['Insert a decorative shape',pg('🔷 That is not data.')]],a:0,why:'Select only the rows, cells or fields the brief asks for, then paste them in.'},
+{m:'q',ask:'The ticket price is wrong. How do you correct it in an existing issue?',o:[['Open it, select the old price, type KWD 1.50',pg('<b>Ticket: KWD 1.50</b> ✅')],['Create a blank document and start again',pg('📄 Blank page. Everything lost.')],['Delete the whole page',pg('🗑️ Oops.')]],a:0,why:'To change an existing document, open it and select the exact text you want to edit.'}]},
+{n:'Art desk',ic:'🖼️',sec:'13.1',r:[
+{m:'q',ask:'The mascot is circular. Make the text follow its outline as closely as possible.',o:[['Tight',W(sq+'shape-outside:circle(50%)')],['Square',W(sq)],['Above / below',W('display:block;margin:6px auto')]],a:0,why:'Tight wrapping follows the outline of the object.'},
+{m:'q',ask:'Which wrapping puts the text on separate lines from the object, so nothing sits beside it?',o:[['Above / below',W('display:block;margin:6px auto')],['Tight',W(sq+'shape-outside:circle(50%)')],['Square',W(sq)]],a:0,why:'Above and below keeps the text off the object’s sides.'},
+{m:'sort',ask:'Sort each description into its wrapping style.',b:['Square','Tight','Above / below'],it:[['Text fits around the bounding box',0],['Text hugs the object’s outline',1],['Text on separate lines from the object',2],['A box shape around the image',0]]}]},
+{n:'Table tower',ic:'🧮',sec:'13.2',r:[
+{m:'q',ask:'Build a table with a heading row and two snacks: one column for snack, one for price. What size?',o:[['3 rows × 2 columns',TB(3,2)],['2 rows × 3 columns',TB(2,3)],['2 rows × 2 columns',TB(2,2)]],a:0,why:'Rows run across, columns run down: heading plus two snacks is 3 rows, with 2 columns.'},
+{m:'q',ask:'Put one title across both price columns, keeping both columns separate below.',o:[['Merge the two title cells',TB(3,2,1)],['Delete the price column',TB(3,1)],['Insert another row',TB(4,2)]],a:0,why:'Merge joins neighbouring cells into one.'},
+{m:'q',ask:'The long snack name must stay inside its cell. The price goes at the right edge, halfway down.',o:[['Wrap name · right and middle',FM(1,'right','middle')],['Clip name · left and top',FM(0,'left','top')],['Clip name · centre and bottom',FM(0,'center','bottom')]],a:0,why:'Wrapping keeps text inside the cell. Right plus middle is horizontal and vertical alignment.'},
+{m:'sort',ask:'Rows, columns, merge or shading?',b:['Row','Column','Merge','Shading'],it:[['Runs across the table',0],['Runs down the table',1],['Joins neighbouring cells into one',2],['Colours the background of a cell',3]]}]},
+{n:'Page palace',ic:'📄',sec:'13.3 + 17',r:[
+{m:'q',ask:'Put the issue name top left and an automatic page count bottom right.',o:[['Left header · right footer page X of Y field',HF('Midnight Edition','Page 2 of 3')],['Right footer · typed “Page 2 of 3”',HF('','Midnight Edition')],['Centred header · typed number',HF('<span></span>Midnight Edition<span></span>','2')]],a:0,why:'Headers sit at the top, footers at the bottom. A field updates itself, typed numbers never do.'},
+{m:'sort',ask:'Header, footer or field?',b:['Header','Footer','Field'],it:[['Sits at the top of every page',0],['Sits at the bottom of every page',1],['Updates itself to show page X of Y',2],['Automatic date or time',2]]},
+{m:'q',ask:'A portrait booklet will be stapled on the left. Keep the paper size but give the binding extra room.',o:[['Add a left gutter',PAGE('border-left:30px solid #e4c8a5')],['Change to landscape',PAGE('width:100%;height:60px')],['Make both margins wider',PAGE('padding:12px 40px')]],a:0,why:'A gutter adds extra space at the binding edge.'},
+{m:'q',ask:'The article must start at the top of the right-hand column on the same page.',o:[['Column break',COL(2,20)],['Page break',pg('📃 …starts on a whole new page')],['Section break',pg('✂️ Section break, but no column jump')]],a:0,why:'A column break starts the next column. A page break starts a new page.'},
+{m:'live',ask:'Make two columns, with a wider gap so articles are easier to tell apart. Aim for a gap of 25 px or more.',c:[['c','Columns',1,3,1,1],['g','Gap (px)',0,50,2,0]],ok:v=>v.c==2&&v.g>=25,css:v=>COL(v.c,v.g),why:'Set 2 columns, then widen the gap.'}]},
+{n:'Type shop',ic:'🔤',sec:'17',r:[
+{m:'live',ask:'Set the article to 1.5 line spacing and add a gap of at least 10 px after each paragraph.',c:[['l','Line spacing',1,2.5,.25,1],['p','Space after (px)',0,30,2,0]],ok:v=>v.l==1.5&&v.p>=10,css:v=>pg(`<div style="line-height:${v.l}"><p style="margin:0 0 ${v.p}px">${T0}</p><p style="margin:0 0 ${v.p}px">${T0}</p></div>`),why:'Line spacing is within a paragraph. Space after sits between paragraphs.'},
+{m:'q',ask:'Line up 2.50, 12.000 and 0.7 on their decimal points.',o:[['Decimal tab',NM('d')],['Centre tab',NM('center')],['Right tab',NM('right')],['Left tab',NM('left')]],a:0,why:'Decimal tabs align decimal separators even when numbers differ in length.'},
+{m:'q',ask:'Reference entry: author at the margin, the continuation line shifted in.',o:[['Hanging indent',pg('<p style="padding-left:2em;text-indent:-2em">Patel, A. (2026) The Robot Who Complimented the Head. Press.</p>')],['First-line indent',pg('<p style="text-indent:2em">Patel, A. (2026) The Robot Who Complimented the Head. Press.</p>')],['Whole paragraph indent',pg('<p style="margin-left:2em">Patel, A. (2026) The Robot Who Complimented the Head. Press.</p>')]],a:0,why:'A hanging indent leaves line one at the margin and moves later lines in.'},
+{m:'q',ask:'Put the 2 below the baseline in H2O and change the heading to capitals.',o:[['Subscript · UPPERCASE',pg('<h3>H<sub>2</sub>O SAVES THE DAY</h3>')],['Superscript · lowercase',pg('<h3>H<sup>2</sup>O saves the day</h3>')],['Underline · Sentence case',pg('<h3><u>H2O saves the day</u></h3>')]],a:0,why:'Subscript lowers characters. Change case switches text without retyping.'},
+{m:'q',ask:'Show the launch steps in a list where readers can tell the order.',o:[['Numbered list',pg('<ol><li>Power up</li><li>Countdown</li><li>Launch!</li></ol>')],['Bulleted list',pg('<ul><li>Power up</li><li>Countdown</li><li>Launch!</li></ul>')],['One long paragraph',pg('Power up countdown launch')]],a:0,why:'Numbering shows sequence and updates when items move.'}]},
+{n:'BOSS: Midnight deadline',ic:'⏰',sec:'Everything',boss:1}];
+/* UI */
+const rank=x=>x<150?'Intern':x<350?'Sub-editor':x<600?'Layout legend':'Editor-in-chief';
+const app=$('#app'),hud=(extra='')=>`<div class=hud><span>⭐ XP <b>${S.xp+(G?G.xp:0)}</b></span><span>${extra}</span><button class="btn alt" style="padding:6px 10px" onclick="mute=!mute;this.textContent=mute?'🔇':'🔊'">${mute?'🔇':'🔊'}</button></div>`;
+let G=null,timer;
+function title(){G=null;clearInterval(timer);app.innerHTML=`<div class="title"><span class=big>🤖</span><h1>${[...'DOCUMENT RESCUE'].map((c,i)=>`<span style="animation-delay:${i*.08}s">${c==' '?'&nbsp;':c}</span>`).join('')}</h1><p class=px style="font-size:.7rem;color:var(--m)">PRESS PANIC · IGCSE ICT 13 + 17</p><p style="max-width:42ch;margin:20px auto">The school zine goes to press at midnight and Byte the robot has wrecked the layout. Fix it before the deadline. You have 3 lives per level.</p><button class=btn onclick="map()">▶ PRESS START</button></div>`}
+function map(){G=null;clearInterval(timer);app.innerHTML=hud('Rank: <b>'+rank(S.xp)+'</b>')+`<div class=map>${L.map((l,i)=>{const open=i==0||(i<5?S.st[i-1]:L.slice(0,5).every((_,j)=>S.st[j])),s=S.st[i]||0;return `<button class="node ${l.boss?'boss':''}" ${open?'':'disabled'} onclick="play(${i})"><span class=ic>${open?l.ic:'🔒'}</span><b>${l.n}</b><br><small>Section ${l.sec}</small><div>${'⭐'.repeat(s)}${'☆'.repeat(3-s)}</div></button>`}).join('')}</div>`}
+function bossRounds(){return shuf(L.slice(0,5).flatMap(l=>l.r.filter(r=>r.m=='q'))).slice(0,8)}
+function play(i){G={i,r:L[i].boss?bossRounds():L[i].r,k:0,hp:3,combo:0,xp:0};round()}
+const say=t=>{const e=$('#say');if(e)e.textContent=t};
+function head(){const q=G.r.length;return hud(`${'❤️'.repeat(G.hp)}${'🖤'.repeat(3-G.hp)} · 🔥 x${Math.min(G.combo,4)+1} · ${G.k+1}/${q}`)}
+function round(){clearInterval(timer);const r=G.r[G.k];if(!r)return finish();
+ app.innerHTML=head()+`<div class=wb><div class=br><div class=tg>${L[G.i].n} · ${L[G.i].sec}</div>${L[G.i].boss?'<div class=bar><i id=tb></i></div>':''}<h2>${r.ask}</h2><div id=ctl></div><div class=fb id=fb></div><div id=nx></div></div><div class=stage><div class=pp id=pp>🖨️ The proof is blank. Make your move and watch it print!</div><div class=mas><span>🤖</span><q id=say>Byte says: don’t panic!</q></div></div></div>`;
+ const pp=$('#pp'),ctl=$('#ctl');
+ if(r.m=='q'){ctl.innerHTML=shuf(r.o.map((_,j)=>j)).map(j=>`<button class=opt data-j=${j}>${r.o[j][0]}</button>`).join('');
+  ctl.onclick=e=>{const b=e.target.closest('.opt');if(b&&!b.disabled)ans(+b.dataset.j==r.a,e,+b.dataset.j)};
+  if(L[G.i].boss){let t=14;const bar=$('#tb');timer=setInterval(()=>{t-=.1;bar.style.width=t/14*100+'%';if(t<=0){clearInterval(timer);ans(false,null,-1)}},100)}}
+ else if(r.m=='sort'){let sel=null,left=r.it.length;ctl.innerHTML=r.b.map((b,j)=>`<div class=bk data-j=${j}><b>${b}</b></div>`).join('')+'<div>'+shuf(r.it.map((_,i)=>i)).map(i=>`<button class=chip draggable=true data-i=${i}>${r.it[i][0]}</button>`).join('')+'</div>';
+  const put=(i,bk,e)=>{const c=ctl.querySelector(`.chip[data-i="${i}"]`);if(!c||c.disabled)return;if(r.it[i][1]==+bk.dataset.j){c.disabled=true;c.className='chip done';bk.append(c);hit(e);if(!--left)done(true,null,1)}else{miss(e);c.classList.add('shake');setTimeout(()=>c.classList.remove('shake'),400)}sel=null};
+  ctl.onclick=e=>{const c=e.target.closest('.chip'),b=e.target.closest('.bk');if(c&&!c.disabled){ctl.querySelectorAll('.sel').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');sel=c.dataset.i}else if(b&&sel!=null)put(sel,b,e)};
+  ctl.ondragstart=e=>{e.dataTransfer.setData('t',e.target.dataset.i)};ctl.ondragover=e=>e.preventDefault();ctl.ondrop=e=>{e.preventDefault();const b=e.target.closest('.bk');if(b)put(e.dataTransfer.getData('t'),b,e)};
+  pp.innerHTML='🧩 Tap a card then tap its box, or drag it there.'}
+ else{const v={};r.c.forEach(c=>v[c[0]]=c[5]);ctl.innerHTML=r.c.map(c=>`<div class=sl><label>${c[1]}: <b id=o_${c[0]}>${c[5]}</b><input type=range min=${c[2]} max=${c[3]} step=${c[4]} value=${c[5]} data-k=${c[0]}></label></div>`).join('')+'<button class=btn id=go>🖨️ Send to press</button>';
+  const draw=()=>pp.innerHTML=r.css(v);draw();ctl.oninput=e=>{v[e.target.dataset.k]=+e.target.value;$('#o_'+e.target.dataset.k).textContent=e.target.value;draw()};
+  $('#go').onclick=e=>{if(r.ok(v)){ctl.querySelectorAll('input,button').forEach(x=>x.disabled=true);done(true,e)}else{miss(e);fb(false,'Not quite. '+r.why)}}}
+ function ans(ok,e,j){clearInterval(timer);ctl.querySelectorAll('.opt').forEach(b=>{b.disabled=true;if(+b.dataset.j==r.a)b.classList.add('ok');else if(+b.dataset.j==j)b.classList.add('no')});
+  pp.innerHTML=r.o[j<0?r.a:j][1];fb(ok,(ok?'Yes! ':j<0?'Time’s up! ':'Not quite. ')+r.why);if(!ok){pp.classList.add('shake');setTimeout(()=>{pp.innerHTML=r.o[r.a][1]},900)}ok?hit(e):miss(e);done(ok,e,1)}
+ function done(ok,e,solved){if(G.hp<=0)return;if(!solved)hit(e);nx(ok||solved)}
+ function fb(ok,t){$('#fb').className='fb '+(ok?'':'bad');$('#fb').textContent=t}
+ function nx(){$('#nx').innerHTML=`<button class=btn id=nb>${G.k+1==G.r.length?'Finish level ▶':'Next ▶'}</button>`;$('#nb').focus();$('#nb').onclick=()=>{G.k++;round()}}
+}
+const cheer=['Layout magic!','Print-ready!','The editor is thrilled!','Byte approves!','Crispy formatting!'],oops=['Yikes, ink everywhere!','Byte is sweating…','Check the brief again!','Stop the presses!'];
+function hit(e){const p=10*(1+Math.min(G.combo,4));G.combo++;G.xp+=p;good();burst(30,e&&e.clientX,e&&e.clientY);pop('+'+p,e);say(cheer[Math.random()*cheer.length|0]);const h=$('.hud b');if(h)h.textContent=S.xp+G.xp}
+function miss(e){G.hp--;G.combo=0;bad();say(oops[Math.random()*oops.length|0]);const w=$('.wb');if(w){w.classList.add('shake');setTimeout(()=>w.classList.remove('shake'),400)}if(G.hp<=0){clearInterval(timer);setTimeout(fail,900)}}
+function fail(){clearInterval(timer);app.innerHTML=hud()+`<div class=center><span class=big>😵</span><h1 class=px style="font-size:1.4rem;color:var(--c)">OUT OF LIVES</h1><p>The ink ran dry. XP from this try still counts.</p><button class=btn onclick="S.xp+=G.xp;save();play(${G.i})">↻ Try again</button> <button class="btn alt" onclick="S.xp+=G.xp;save();map()">Map</button></div>`}
+function finish(){const st=G.hp>=3?3:G.hp==2?2:1;S.st[G.i]=Math.max(S.st[G.i]||0,st);S.xp+=G.xp;save();win();burst(160);const all=L.every((_,j)=>S.st[j]),next=G.i+1<L.length&&(G.i+1<5||L.slice(0,5).every((_,j)=>S.st[j]));
+ app.innerHTML=hud()+`<div class=center><span class=big>${L[G.i].boss?'🏆':'🎉'}</span><h1 class=px style="font-size:1.4rem;color:var(--y)">${L[G.i].boss?'ISSUE PRINTED!':'LEVEL CLEAR!'}</h1><div class=stars>${[0,1,2].map(i=>`<i style="animation-delay:${i*.2}s">${i<st?'⭐':'☆'}</i>`).join('')}</div><p>+${G.xp} XP · Rank: <b>${rank(S.xp)}</b></p>${all?'<p>You rescued every desk. The editor is speechless.</p>':''}${next?`<button class=btn onclick="play(${G.i+1})">Next level ▶</button> `:''}<button class="btn alt" onclick="map()">Map</button></div>`}
+title();
+</script></body></html>
